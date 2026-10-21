@@ -1,9 +1,10 @@
 plugins {
     id("blc.java-conventions")
+    `java-library`
 }
 
 dependencies {
-    testImplementation("com.google.code.gson:gson:2.10.1")
+    api("com.google.code.gson:gson:2.10.1")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
 }
 
