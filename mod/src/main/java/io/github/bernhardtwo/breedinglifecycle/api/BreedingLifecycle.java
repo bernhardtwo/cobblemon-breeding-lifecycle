@@ -8,9 +8,9 @@ public final class BreedingLifecycle {
     private BreedingLifecycle() {}
 
     /**
-     * Rolls the loss of each parent, adds one breeding to both counters and audits it. The caller removes lost parents.
+     * Rolls each parent's loss, counts the breeding on both and audits it; the caller removes lost parents.
      *
-     * @throws IllegalStateException when called off the server thread or before the server has started
+     * @throws IllegalStateException off the server thread or before the server has started
      */
     public static BreedingResult evaluate(Pokemon parentA, Pokemon parentB) {
         return LifecycleService.get().evaluate(parentA, parentB, "api");
