@@ -15,5 +15,10 @@
     "typescript": "7.0.2",
     "vite": "8.3.3",
     "vitest": "5.0.3"
+  },
+  "dependencies": {
+    "@fontsource/archivo": "5.3.0",
+    "@fontsource/funnel-display": "5.3.0",
+    "@fontsource/funnel-sans": "5.3.0"
   }
 }

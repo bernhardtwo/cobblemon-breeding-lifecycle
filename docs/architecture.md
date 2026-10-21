@@ -5,7 +5,7 @@
 | `core` | Gson | Loss curve, per-parent roll, seeded RNG, Monte Carlo simulator, JSON config parsing and validation. |
 | `cli` | `core`, picocli | Terminal simulator: `curve`, `simulate`, `compare`. |
 | `mod` | `core`, Cobblemon, Fabric API | Server-only Fabric mod: Loom, `core` nested in the jar, GameTests in `src/gametest`. |
-| `web` | — | Static Vite + TypeScript simulator (milestone 4). |
+| `web` | Vite, TypeScript, `@fontsource` | Static simulator: curve, charts, `E` and config export in the browser ([web](web.md)). |
 | `test-vectors/` | — | `curve-cases.json`, checked by the `core` and `web` tests. |
 
 ## Build
@@ -46,3 +46,17 @@ persistent store is crash-safe ([save-timing](research/save-timing.md), [0006](d
 
 **Tests.** JUnit in `mod/src/test` covers config and audit without Minecraft; GameTests in `mod/src/gametest` cover
 everything that needs Cobblemon: counter, `evaluate`, commands and translations, the adapter, the reference daycare.
+
+## The web simulator
+`web/src` has no framework:
+
+| File | Contents |
+|---|---|
+| `curve.ts` | Port of `core`'s `Curve`: `lossProbability`, `survival`, `expectedOffspring`, `validateCurve`, `DEFAULT_CURVE`. |
+| `config.ts` | `toConfigJson(main, ditto)`: the exported `breeding-lifecycle.json`. |
+| `i18n.ts`, `theme.ts` | Language (`?lang=`, browser), es/en messages, decimal format; theme (stored choice or system). |
+| `chart.ts` | Hand-written SVG line charts (`linePath`, `drawChart`). |
+| `main.ts`, `styles.css` | `mount(root, env)` builds the page and wires it; palette in [0010](decisions/0010-web-light-palette.md). |
+
+`test-vectors/curve-cases.json` keeps `web` and `core` on the same numbers; `test-vectors/web-export-example.json`
+keeps the export and `ConfigParser` on the same config.
