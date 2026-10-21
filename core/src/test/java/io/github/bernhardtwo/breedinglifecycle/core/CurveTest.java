@@ -25,6 +25,16 @@ class CurveTest {
     }
 
     @Test
+    void nearZeroLossIsRejected() {
+        assertThatThrownBy(() -> new Curve(1e-17, 1.0, null)).hasMessageContaining("maxBreedings");
+    }
+
+    @Test
+    void slowButFiniteCurveIsAccepted() {
+        assertThat(new Curve(0.01, 1.0, null).expectedOffspring()).isCloseTo(100.0, within(1e-6));
+    }
+
+    @Test
     void outOfRangeIsRejected() {
         assertThatThrownBy(() -> new Curve(0.33, 0.0, null)).hasMessageContaining("r");
     }

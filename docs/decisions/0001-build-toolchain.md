@@ -11,8 +11,7 @@ The target server and every module run on Java 21.
 - Gradle 9.7.1 wrapper, Kotlin DSL, shared conventions in `build-logic/` (`blc.java-conventions`, `blc.root-checks`).
 - Fabric Loom `net.fabricmc.fabric-loom-remap` 1.17.x for `mod`, so one JDK 21 runs the whole build.
 - Spotless 8.10.4 with palantir-java-format 2.102.0; Checkstyle 14.3.0 with NeedBraces, EmptyCatchBlock,
-  EqualsHashCode, HideUtilityClassConstructor and AvoidStarImport. `MissingJavadocType` is left out because
-  Javadoc is required on the public API only, not on every public type.
+  EqualsHashCode, HideUtilityClassConstructor, AvoidStarImport and MissingJavadocType (public scope).
 - JUnit 6.1.3 and AssertJ 3.27.7.
 
 ## Consequences

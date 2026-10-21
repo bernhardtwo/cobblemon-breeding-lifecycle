@@ -4,9 +4,9 @@ import java.util.Locale;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
+/** Entry point of the breeding lifecycle simulator. */
 @Command(
         name = "cli",
-        resourceBundle = "messages",
         mixinStandardHelpOptions = true,
         subcommands = {CurveCommand.class, SimulateCommand.class, CompareCommand.class})
 public final class Main {
@@ -16,15 +16,18 @@ public final class Main {
 
     public static void main(String[] args) {
         String lang = Messages.langIn(args);
-        if (lang != null && (lang.equals("es") || lang.equals("en"))) {
-            Locale.setDefault(Messages.resolve(lang, Locale.getDefault()));
-        }
-        System.exit(commandLine().execute(args));
+        boolean known = "es".equals(lang) || "en".equals(lang);
+        System.exit(commandLine(known ? lang : null).execute(args));
     }
 
     static CommandLine commandLine() {
+        return commandLine(null);
+    }
+
+    static CommandLine commandLine(String helpLang) {
         var cli = new CommandLine(new Main());
-        var help = new Messages(Messages.resolve(null, Locale.getDefault()));
+        var help = new Messages(Messages.resolve(helpLang, Locale.getDefault()));
+        cli.setResourceBundle(help.bundle());
         cli.getCommandSpec().usageMessage().description(help.get("command.root"));
         cli.getSubcommands()
                 .forEach((name, sub) -> sub.getCommandSpec().usageMessage().description(help.get("command." + name)));

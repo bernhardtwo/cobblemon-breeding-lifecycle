@@ -48,6 +48,7 @@ Every error is reported at once, each naming the field path, the value and the r
 | `maxBreedings` null or integer ≥ 1 | `overrides.maxBreedings = 2.5: must be null or an integer >= 1` |
 | numbers must be numbers | `overrides.p1 = "high": must be a number` |
 | a curve must lose parents eventually | `overrides: p1 = 0 and r = 1: a parent would never be lost; set maxBreedings` |
+| … within 1,000,000 breedings | `overrides: p1 = 1.0E-17 and r = 1.0: a parent would practically never be lost (…); set maxBreedings` |
 | required fields | `presets.fast.r: required` |
 | known fields only | `overrides.p2: unknown field` |
 | selected preset exists | `preset = nope: no such preset in presets` |

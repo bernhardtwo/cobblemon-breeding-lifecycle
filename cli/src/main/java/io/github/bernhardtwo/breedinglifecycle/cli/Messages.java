@@ -43,6 +43,10 @@ final class Messages {
         return null;
     }
 
+    ResourceBundle bundle() {
+        return bundle;
+    }
+
     Locale locale() {
         return locale;
     }

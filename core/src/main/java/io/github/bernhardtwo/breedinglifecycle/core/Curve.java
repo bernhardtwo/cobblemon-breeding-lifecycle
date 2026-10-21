@@ -6,6 +6,7 @@ import java.util.List;
 /** Loss curve of one parent; {@code maxBreedings} is the breeding at which it is always lost, or null. */
 public record Curve(double p1, double r, Integer maxBreedings) {
     private static final double SURVIVAL_EPSILON = 1e-12;
+    private static final int MAX_UNLIMITED_BREEDINGS = 1_000_000;
 
     /** The {@code default} preset curve: {@code p1 = 0.33}, {@code r = 0.764}, no limit. */
     public static final Curve DEFAULT = new Curve(0.33, 0.764, null);
@@ -29,8 +30,14 @@ public record Curve(double p1, double r, Integer maxBreedings) {
         if (maxBreedings != null && maxBreedings < 1) {
             errors.add("maxBreedings = " + maxBreedings + ": must be null or an integer >= 1");
         }
-        if (errors.isEmpty() && p1 == 0 && r == 1 && maxBreedings == null) {
-            errors.add("p1 = 0 and r = 1: a parent would never be lost; set maxBreedings");
+        if (errors.isEmpty() && maxBreedings == null) {
+            if (p1 == 0 && r == 1) {
+                errors.add("p1 = 0 and r = 1: a parent would never be lost; set maxBreedings");
+            } else if (!survivalVanishes(p1, r)) {
+                errors.add("p1 = " + p1 + " and r = " + r
+                        + ": a parent would practically never be lost (still there after " + MAX_UNLIMITED_BREEDINGS
+                        + " breedings); set maxBreedings");
+            }
         }
         return errors;
     }
@@ -63,6 +70,17 @@ public record Curve(double p1, double r, Integer maxBreedings) {
             survival *= 1.0 - lossProbability(n);
         }
         return expected;
+    }
+
+    private static boolean survivalVanishes(double p1, double r) {
+        double survival = 1.0;
+        for (int n = 1; n <= MAX_UNLIMITED_BREEDINGS; n++) {
+            survival *= (1.0 - p1) * Math.pow(r, n - 1);
+            if (survival < SURVIVAL_EPSILON) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void requirePositive(int n) {

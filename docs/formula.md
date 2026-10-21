@@ -8,7 +8,8 @@ breeding number `n` (1 for its first breeding) and its own curve.
 
 - `p1` ∈ [0, 1]: loss chance on the first breeding.
 - `r` ∈ (0, 1]: how fast the chance of keeping the parent shrinks; `r = 1` keeps `p(n) = p1`.
-- `p1 = 0` with `r = 1` and no `maxBreedings` is rejected: the parent would never be lost.
+- Without `maxBreedings`, a curve must lose its parent eventually: `p1 = 0` with `r = 1` is rejected, and so is
+  any curve whose `S(n)` is still above `1e-12` after 1,000,000 breedings (for example `p1 = 1e-17`, `r = 1`).
 
 ## Survival and expected offspring
 `S(1) = 1`, `S(n+1) = S(n) · (1 − p(n))` is the chance the parent is still there for breeding `n`.

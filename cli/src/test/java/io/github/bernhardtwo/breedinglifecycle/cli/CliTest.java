@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -64,6 +65,17 @@ class CliTest {
     @Test
     void rejectsUnknownLanguage() {
         assertThat(exitCode("curve", "--lang", "fr")).isEqualTo(2);
+    }
+
+    @Test
+    void startsOnASystemThatIsNeitherSpanishNorEnglish() {
+        Locale previous = Locale.getDefault();
+        Locale.setDefault(Locale.forLanguageTag("pt-BR"));
+        try {
+            assertThat(run("curve")).contains("Expected offspring per parent");
+        } finally {
+            Locale.setDefault(previous);
+        }
     }
 
     private String run(String... args) {
