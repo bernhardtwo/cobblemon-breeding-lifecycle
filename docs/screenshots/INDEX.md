@@ -16,3 +16,16 @@ Regenerate the CLI ones with `./scripts/cli-screenshots.sh` (needs `freeze`: `br
 
 The in-game ones are set up with `./scripts/ingame-screenshots.sh server|client|loss` and taken by hand, as
 [TODO.md](TODO.md) says.
+
+## Web
+
+Regenerate with `npm --prefix web run screenshots` (Playwright Chromium against `vite preview` of the build; install
+the browser once with `npx --prefix web playwright install chromium`). The script fails if any page scrolls sideways.
+Names are `web-<width>-<theme>-<lang>-<state>.png`: widths 390 and 1440, themes `light` and `dark`
+(`prefers-color-scheme`), languages `es` and `en` (`?lang=`), 24 files in all.
+
+| Files | Shows | Works |
+|---|---|---|
+| `web-{390,1440}-{light,dark}-{es,en}-initial.png` | Default curves: `E = 2.20` (`2,20` in es) vs `1.00`, Ditto `2.20`, both charts and the table | yes |
+| `web-{390,1440}-{light,dark}-{es,en}-sliders.png` | Main curve moved to `p1 = 0.5`, `r = 0.9`: `E` and the main series change, Ditto stays | yes |
+| `web-{390,1440}-{light,dark}-{es,en}-exported.png` | After **Export JSON**: the panel shows the exported `breeding-lifecycle.json` with `"maxBreedings": null` | yes |

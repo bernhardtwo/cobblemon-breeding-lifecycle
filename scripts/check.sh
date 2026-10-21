@@ -12,3 +12,7 @@ if [ -z "${JAVA_HOME:-}" ]; then
 fi
 
 ./gradlew check
+
+npm --prefix web ci
+npm --prefix web test
+npm --prefix web run build
