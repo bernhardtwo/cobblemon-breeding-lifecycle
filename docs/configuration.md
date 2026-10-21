@@ -45,6 +45,17 @@ See [formula](formula.md) for what `p1`, `r` and `maxBreedings` do.
   `audit.enabled = "yes": must be true or false`, `eggEventAdapter = true: must be an object`.
 - Curve errors and switch errors are reported together.
 
+## Audit log
+With `audit.enabled`, every evaluated parent adds one JSON line to `logs/breeding-lifecycle/audit.jsonl`, written
+on a background thread (`breedinglifecycle-audit`) so the server thread never waits on disk:
+
+```json
+{"time":"2026-10-21T15:00:00Z","playerUuid":"…","playerName":"Ash","pokemonUuid":"…","species":"cobblemon:bulbasaur","n":3,"p":0.6089,"roll":0.25,"result":"lost","source":"daycare"}
+```
+
+`time` is ISO-8601 UTC; `playerUuid` and `playerName` are `null` when the owner is unknown (a wild Pokémon, an
+owner never seen by the server); `result` is `kept`, `lost` or `skipped`; `source` is `api`, `daycare` or `egg-event`.
+
 ## Loading and reload (mod)
 - At start the mod reads `config/breeding-lifecycle.json`, writing the default above when the file is missing.
   An invalid file at start logs every error and the server runs with the defaults.

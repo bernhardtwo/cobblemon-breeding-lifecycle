@@ -1,4 +1,0 @@
-[08:27:23] [Test worker/ERROR]: Invalid config /var/folders/4g/_962559966dcpb32rq7__tzr0000gn/T/junit-12747584675653767124/breeding-lifecycle.json, using defaults: invalid JSON: java.io.EOFException: End of input at line 1 column 2 path $.
-[08:27:23] [Test worker/INFO]: Wrote default config to /var/folders/4g/_962559966dcpb32rq7__tzr0000gn/T/junit-10800515640728364732/breeding-lifecycle.json
-[08:27:23] [Test worker/INFO]: Wrote default config to /var/folders/4g/_962559966dcpb32rq7__tzr0000gn/T/junit-6696660919252648924/breeding-lifecycle.json
-[08:27:23] [Test worker/ERROR]: Invalid config /var/folders/4g/_962559966dcpb32rq7__tzr0000gn/T/junit-12945202913008386232/breeding-lifecycle.json, using defaults: invalid JSON: java.io.EOFException: End of input at line 1 column 2 path $.
