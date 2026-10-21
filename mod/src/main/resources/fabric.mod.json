@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "breedinglifecycle",
+  "version": "${version}",
+  "name": "Breeding Lifecycle",
+  "description": "Each breeding has a growing, per-parent chance of losing each parent.",
+  "environment": "server",
+  "entrypoints": {
+    "server": ["io.github.bernhardtwo.breedinglifecycle.mod.BreedingLifecycleMod"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.2",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*",
+    "cobblemon": ">=1.7.3+1.21.1"
+  }
+}

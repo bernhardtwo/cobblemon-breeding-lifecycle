@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "breedinglifecycle-gametest",
+  "version": "0.0.0",
+  "name": "Breeding Lifecycle GameTests",
+  "environment": "server",
+  "entrypoints": {
+    "fabric-gametest": [
+      "io.github.bernhardtwo.breedinglifecycle.gametest.SmokeGameTests"
+    ]
+  },
+  "depends": {
+    "breedinglifecycle": "*"
+  }
+}
