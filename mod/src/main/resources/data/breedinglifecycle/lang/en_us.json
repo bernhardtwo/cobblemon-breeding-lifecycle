@@ -1,0 +1,14 @@
+{
+  "breedinglifecycle.curve.header": "Active curve: preset %s",
+  "breedinglifecycle.curve.main": "Main curve: p1 = %s, r = %s, maxBreedings = %s",
+  "breedinglifecycle.curve.ditto": "Ditto curve: p1 = %s, r = %s, maxBreedings = %s",
+  "breedinglifecycle.curve.none": "none",
+  "breedinglifecycle.curve.columns": "n | p(n) | S(n)",
+  "breedinglifecycle.curve.row": "%s | %s | %s",
+  "breedinglifecycle.curve.expected": "Expected offspring per parent: E = %s",
+  "breedinglifecycle.info.result": "Slot %s: %s, breedings: %s, loss chance on the next breeding: %s",
+  "breedinglifecycle.info.empty_slot": "Slot %s of your party is empty.",
+  "breedinglifecycle.reload.ok": "Breeding Lifecycle config reloaded.",
+  "breedinglifecycle.reload.failed": "Config not reloaded, the previous one stays active. Errors:",
+  "breedinglifecycle.reload.error": "- %s"
+}

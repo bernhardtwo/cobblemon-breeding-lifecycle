@@ -62,6 +62,16 @@ owner never seen by the server); `result` is `kept`, `lost` or `skipped`; `sourc
 - `/breedinglifecycle reload` and vanilla `/reload` re-read the file. A valid file replaces the settings at once;
   an invalid one keeps the previous settings and the errors are shown to whoever ran the command.
 
+## Commands
+| Command | Who | Output |
+|---|---|---|
+| `/breedinglifecycle reload` | operators (level 2) | Re-reads the file; on errors keeps the old settings and lists every error. |
+| `/breedinglifecycle info <1-6>` | any player | Species, breedings done and the loss chance of the next breeding for that party slot. |
+| `/breedinglifecycle curve` | anyone | `n`, `p(n)`, `S(n)` and `E` for the active main and Ditto curves. |
+
+Text follows each client's language (Spanish for every `es_*` locale, English otherwise), resolved on the server
+([0007](decisions/0007-server-side-translations.md)). Numbers use four decimals with a dot.
+
 ## Overrides
 - Each field present in `overrides` replaces the same field of the selected preset; the preset itself is unchanged.
 - `overrides.ditto` merges field by field into the preset's Ditto curve.
