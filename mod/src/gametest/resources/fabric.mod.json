@@ -9,7 +9,10 @@
       "io.github.bernhardtwo.breedinglifecycle.gametest.SmokeGameTests",
       "io.github.bernhardtwo.breedinglifecycle.gametest.EvaluateGameTests",
       "io.github.bernhardtwo.breedinglifecycle.gametest.CommandGameTests",
-      "io.github.bernhardtwo.breedinglifecycle.gametest.EggEventAdapterGameTests"
+      "io.github.bernhardtwo.breedinglifecycle.gametest.EggEventAdapterGameTests",
+      "io.github.bernhardtwo.breedinglifecycle.gametest.CompatibilityGameTests",
+      "io.github.bernhardtwo.breedinglifecycle.gametest.DaycareDataGameTests",
+      "io.github.bernhardtwo.breedinglifecycle.gametest.DaycareGameTests"
     ]
   },
   "depends": {

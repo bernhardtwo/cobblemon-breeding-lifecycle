@@ -68,6 +68,11 @@ public final class LifecycleService {
 
     /** Rolls both parents, counts the breeding on both and audits it with {@code source}. */
     public BreedingResult evaluate(Pokemon parentA, Pokemon parentB, String source) {
+        return evaluate(parentA, parentB, source, null);
+    }
+
+    /** As {@link #evaluate(Pokemon, Pokemon, String)}, auditing {@code owner} for parents held outside any store. */
+    public BreedingResult evaluate(Pokemon parentA, Pokemon parentB, String source, UUID owner) {
         Objects.requireNonNull(parentA, "parentA");
         Objects.requireNonNull(parentB, "parentB");
         MinecraftServer running = server;
@@ -80,8 +85,8 @@ public final class LifecycleService {
         BreedingCounter.increment(parentA);
         BreedingCounter.increment(parentB);
         Instant now = Instant.now();
-        record(running, parentA, a, now, source);
-        record(running, parentB, b, now, source);
+        record(running, parentA, a, now, source, owner);
+        record(running, parentB, b, now, source, owner);
         return new BreedingResult(a, b);
     }
 
@@ -96,10 +101,12 @@ public final class LifecycleService {
         return new ParentResult(pokemon.getUuid(), outcome.n(), outcome.p(), outcome.roll(), outcome.survives());
     }
 
-    private void record(MinecraftServer running, Pokemon pokemon, ParentResult result, Instant now, String source) {
+    private void record(
+            MinecraftServer running, Pokemon pokemon, ParentResult result, Instant now, String source, UUID owner) {
         audit.record(entry(
                 running,
                 pokemon,
+                owner,
                 now,
                 result.n(),
                 result.p(),
@@ -111,13 +118,14 @@ public final class LifecycleService {
     private static AuditEntry entry(
             MinecraftServer running,
             Pokemon pokemon,
+            UUID fallbackOwner,
             Instant now,
             int n,
             double p,
             double roll,
             String result,
             String source) {
-        UUID owner = pokemon.getOwnerUUID();
+        UUID owner = pokemon.getOwnerUUID() != null ? pokemon.getOwnerUUID() : fallbackOwner;
         return new AuditEntry(
                 now,
                 owner,
