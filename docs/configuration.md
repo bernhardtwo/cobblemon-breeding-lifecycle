@@ -33,6 +33,24 @@ When the file is missing, the mod writes this default:
 
 See [formula](formula.md) for what `p1`, `r` and `maxBreedings` do.
 
+## Mod switches
+| Block | Default | Effect |
+|---|---|---|
+| `referenceDaycare.enabled` | `false` | Enables the reference `/daycare` (milestone 3). |
+| `eggEventAdapter.enabled` | `false` | Applies the loss to `COLLECT_EGG` from breeding mods ([integration](integration.md)). |
+| `audit.enabled` | `true` | Writes `logs/breeding-lifecycle/audit.jsonl`. |
+
+- A missing block, or a block without `enabled`, uses the default.
+- A block that is not an object, or an `enabled` that is not a boolean, is a config error:
+  `audit.enabled = "yes": must be true or false`, `eggEventAdapter = true: must be an object`.
+- Curve errors and switch errors are reported together.
+
+## Loading and reload (mod)
+- At start the mod reads `config/breeding-lifecycle.json`, writing the default above when the file is missing.
+  An invalid file at start logs every error and the server runs with the defaults.
+- `/breedinglifecycle reload` and vanilla `/reload` re-read the file. A valid file replaces the settings at once;
+  an invalid one keeps the previous settings and the errors are shown to whoever ran the command.
+
 ## Overrides
 - Each field present in `overrides` replaces the same field of the selected preset; the preset itself is unchanged.
 - `overrides.ditto` merges field by field into the preset's Ditto curve.
