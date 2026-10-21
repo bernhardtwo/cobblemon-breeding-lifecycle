@@ -10,8 +10,19 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
+import xyz.nucleoid.server.translations.api.Localization;
+import xyz.nucleoid.server.translations.api.LocalizationTarget;
 
 final class TestSupport {
     private TestSupport() {}
@@ -66,5 +77,64 @@ final class TestSupport {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    /** Runs {@code command} as {@code player} (or the server when null) and returns its output in {@code locale}. */
+    static String run(GameTestHelper h, ServerPlayer player, int level, String command, String locale) {
+        return run(h, player, level, command, locale, new ArrayList<>());
+    }
+
+    static String run(
+            GameTestHelper h, ServerPlayer player, int level, String command, String locale, List<String> keys) {
+        var messages = new ArrayList<Component>();
+        h.getLevel().getServer().getCommands().performPrefixedCommand(stack(h, player, level, messages), command);
+        LocalizationTarget target = () -> locale;
+        var out = new StringBuilder();
+        for (Component message : messages) {
+            collectKeys(message, keys);
+            out.append(Localization.text(message, target).getString()).append('\n');
+        }
+        return out.toString();
+    }
+
+    static void collectKeys(Component component, List<String> keys) {
+        if (component.getContents() instanceof TranslatableContents translatable) {
+            keys.add(translatable.getKey());
+        }
+        component.getSiblings().forEach(sibling -> collectKeys(sibling, keys));
+    }
+
+    static CommandSourceStack stack(GameTestHelper h, ServerPlayer player, int level, List<Component> messages) {
+        CommandSource capture = new CommandSource() {
+            @Override
+            public void sendSystemMessage(Component component) {
+                messages.add(component);
+            }
+
+            @Override
+            public boolean acceptsSuccess() {
+                return true;
+            }
+
+            @Override
+            public boolean acceptsFailure() {
+                return true;
+            }
+
+            @Override
+            public boolean shouldInformAdmins() {
+                return false;
+            }
+        };
+        return new CommandSourceStack(
+                capture,
+                Vec3.ZERO,
+                Vec2.ZERO,
+                h.getLevel(),
+                level,
+                "test",
+                Component.literal("test"),
+                h.getLevel().getServer(),
+                player);
     }
 }

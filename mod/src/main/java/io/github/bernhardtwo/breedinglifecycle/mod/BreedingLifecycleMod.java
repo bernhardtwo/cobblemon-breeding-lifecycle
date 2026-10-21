@@ -3,6 +3,7 @@ package io.github.bernhardtwo.breedinglifecycle.mod;
 import io.github.bernhardtwo.breedinglifecycle.mod.adapter.EggEventAdapter;
 import io.github.bernhardtwo.breedinglifecycle.mod.audit.AuditLog;
 import io.github.bernhardtwo.breedinglifecycle.mod.command.BreedingLifecycleCommand;
+import io.github.bernhardtwo.breedinglifecycle.mod.command.DaycareCommand;
 import io.github.bernhardtwo.breedinglifecycle.mod.config.ConfigHolder;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -33,8 +34,10 @@ public final class BreedingLifecycleMod implements DedicatedServerModInitializer
             }
         });
         EggEventAdapter.register();
-        CommandRegistrationCallback.EVENT.register(
-                (dispatcher, registries, environment) -> BreedingLifecycleCommand.register(dispatcher));
+        CommandRegistrationCallback.EVENT.register((dispatcher, registries, environment) -> {
+            BreedingLifecycleCommand.register(dispatcher);
+            DaycareCommand.register(dispatcher);
+        });
         LOGGER.info("Breeding Lifecycle loaded");
     }
 }
