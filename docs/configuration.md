@@ -33,6 +33,47 @@ When the file is missing, the mod writes this default:
 
 See [formula](formula.md) for what `p1`, `r` and `maxBreedings` do.
 
+## Mod switches
+| Block | Default | Effect |
+|---|---|---|
+| `referenceDaycare.enabled` | `false` | Enables the reference `/daycare` (milestone 3). |
+| `eggEventAdapter.enabled` | `false` | Applies the loss to `COLLECT_EGG` from breeding mods ([integration](integration.md)). |
+| `audit.enabled` | `true` | Writes `logs/breeding-lifecycle/audit.jsonl`. |
+
+- A missing block, or a block without `enabled`, uses the default.
+- A block that is not an object, or an `enabled` that is not a boolean, is a config error:
+  `audit.enabled = "yes": must be true or false`, `eggEventAdapter = true: must be an object`.
+- Curve errors and switch errors are reported together.
+
+## Audit log
+With `audit.enabled`, every evaluated parent adds one JSON line to `logs/breeding-lifecycle/audit.jsonl`, written
+on a background thread (`breedinglifecycle-audit`) so the server thread never waits on disk:
+
+```json
+{"time":"2026-10-21T15:00:00Z","playerUuid":"…","playerName":"Ash","pokemonUuid":"…","species":"cobblemon:bulbasaur","n":3,"p":0.6089,"roll":0.25,"result":"lost","source":"daycare"}
+```
+
+`time` is ISO-8601 UTC; the player is the Pokémon's owner (for a PC, Cobblemon's PC id is the player's UUID,
+checked by a GameTest); `playerUuid` and `playerName` are `null` when the owner is unknown (a wild Pokémon, an
+owner never seen by the server); `result` is `kept` or `lost` (the format reserves `skipped` for a parent that
+could not be removed safely, which Cobblemon 1.7.3 never needs, see [0008](decisions/0008-collect-egg-adapter.md)); `source` is `api`, `daycare` or `egg-event`.
+
+## Loading and reload (mod)
+- At start the mod reads `config/breeding-lifecycle.json`, writing the default above when the file is missing.
+  An invalid file at start logs every error and the server runs with the defaults.
+- `/breedinglifecycle reload` and vanilla `/reload` re-read the file. A valid file replaces the settings at once;
+  an invalid one keeps the previous settings and the errors are shown to whoever ran the command.
+
+## Commands
+| Command | Who | Output |
+|---|---|---|
+| `/breedinglifecycle reload` | operators (level 2) | Re-reads the file; on errors keeps the old settings and lists every error. |
+| `/breedinglifecycle info <1-6>` | any player | Species, breedings done and the loss chance of the next breeding for that party slot. |
+| `/breedinglifecycle curve` | anyone | `n`, `p(n)`, `S(n)` and `E` for the active main and Ditto curves. |
+
+Text follows each client's language (Spanish for every `es_*` locale, English otherwise), resolved on the server
+([0007](decisions/0007-server-side-translations.md)). Numbers use four decimals with a dot.
+
 ## Overrides
 - Each field present in `overrides` replaces the same field of the selected preset; the preset itself is unchanged.
 - `overrides.ditto` merges field by field into the preset's Ditto curve.

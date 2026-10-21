@@ -1,0 +1,14 @@
+{
+  "breedinglifecycle.curve.header": "Curva activa: preset %s",
+  "breedinglifecycle.curve.main": "Curva principal: p1 = %s, r = %s, maxBreedings = %s",
+  "breedinglifecycle.curve.ditto": "Curva de Ditto: p1 = %s, r = %s, maxBreedings = %s",
+  "breedinglifecycle.curve.none": "sin límite",
+  "breedinglifecycle.curve.columns": "n | p(n) | S(n)",
+  "breedinglifecycle.curve.row": "%s | %s | %s",
+  "breedinglifecycle.curve.expected": "Crías esperadas por padre: E = %s",
+  "breedinglifecycle.info.result": "Hueco %s: %s, crianzas: %s, probabilidad de pérdida en la próxima crianza: %s",
+  "breedinglifecycle.info.empty_slot": "El hueco %s de tu equipo está vacío.",
+  "breedinglifecycle.reload.ok": "Configuración de Breeding Lifecycle recargada.",
+  "breedinglifecycle.reload.failed": "No se recargó la configuración; sigue activa la anterior. Errores:",
+  "breedinglifecycle.reload.error": "- %s"
+}

@@ -7,3 +7,5 @@ run/
 .DS_Store
 node_modules/
 web/dist/
+
+logs/
