@@ -15,13 +15,15 @@ See [java-style-tooling](docs/research/java-style-tooling.md) and [fabric-mod-pr
 ## Modules
 | Path | What |
 |---|---|
-| `core` | Rules in plain Java. No Minecraft, no third-party runtime deps. |
+| `core` | Rules in plain Java. No Minecraft; Gson is its only dependency. |
 | `cli` | picocli simulator on `core`. |
 | `mod` | Server-only Fabric mod on `core` + Cobblemon; includes the reference daycare. Only module with Loom. |
 | `web` | Static Vite + TypeScript simulator, no backend. |
 | `test-vectors/` | `curve-cases.json`, shared by `core` and `web` tests. |
 
 ## Commands
+- JDK 21 required. `scripts/check.sh` finds it; for direct `./gradlew` calls on macOS with Homebrew:
+  `export JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home`.
 - `./scripts/check.sh` — the full suite: `./gradlew check` (tests, Spotless, Checkstyle, comment-length check, GameTests)
   then `npm --prefix web ci && npm --prefix web test && npm --prefix web run build`.
 - `./gradlew spotlessApply` — run before every commit.
