@@ -30,3 +30,10 @@ The current system (both parents always consumed) is `E = 1`.
 `test-vectors/curve-cases.json` is written by `python3 scripts/gen-curve-vectors.py`, a separate implementation
 of the formula. The `core` tests (and later the `web` tests) must match every `p`, `S` and `E` within `1e-9`.
 Regenerate it only when a case is added.
+
+## Rolls and simulation
+- After every breeding, each parent rolls `u` uniform in `[0, 1)`; it is lost when `u < p(n)`, kept otherwise.
+  The two parents roll independently, each with its own `n` and curve.
+- `core` takes the random source as `RandomSource`; `SeededRandom(seed)` reproduces any run.
+- `Simulator.run(curve, parents, rng)` breeds each parent until it is lost and reports the mean offspring per
+  parent, the nearest-rank p50/p90/p99, the maximum and the histogram. The mean converges to `E`.
