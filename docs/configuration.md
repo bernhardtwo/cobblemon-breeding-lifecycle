@@ -53,7 +53,8 @@ on a background thread (`breedinglifecycle-audit`) so the server thread never wa
 {"time":"2026-10-21T15:00:00Z","playerUuid":"…","playerName":"Ash","pokemonUuid":"…","species":"cobblemon:bulbasaur","n":3,"p":0.6089,"roll":0.25,"result":"lost","source":"daycare"}
 ```
 
-`time` is ISO-8601 UTC; `playerUuid` and `playerName` are `null` when the owner is unknown (a wild Pokémon, an
+`time` is ISO-8601 UTC; the player is the Pokémon's owner (for a PC, Cobblemon's PC id is the player's UUID,
+checked by a GameTest); `playerUuid` and `playerName` are `null` when the owner is unknown (a wild Pokémon, an
 owner never seen by the server); `result` is `kept` or `lost` (the format reserves `skipped` for a parent that
 could not be removed safely, which Cobblemon 1.7.3 never needs, see [0008](decisions/0008-collect-egg-adapter.md)); `source` is `api`, `daycare` or `egg-event`.
 

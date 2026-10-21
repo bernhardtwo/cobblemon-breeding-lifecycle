@@ -11,17 +11,17 @@ public final class BreedingCounter {
 
     private BreedingCounter() {}
 
-    /** Breedings done so far; 0 when absent, not an integer or negative. */
+    /** Breedings done so far; 0 when absent, not a number or negative. Any numeric tag counts, since JSON storage narrows it. */
     public static int get(Pokemon pokemon) {
         CompoundTag data = pokemon.getPersistentData();
         if (!data.contains(KEY, Tag.TAG_COMPOUND)) {
             return 0;
         }
         CompoundTag own = data.getCompound(KEY);
-        if (!own.contains(BREEDINGS, Tag.TAG_INT)) {
+        if (!own.contains(BREEDINGS, Tag.TAG_ANY_NUMERIC)) {
             return 0;
         }
-        return Math.max(0, own.getInt(BREEDINGS));
+        return (int) Math.clamp(own.getLong(BREEDINGS), 0, Integer.MAX_VALUE);
     }
 
     /** Adds one breeding in place and marks the Pokémon changed so its store saves it. */

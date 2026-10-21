@@ -1,18 +1,23 @@
 package io.github.bernhardtwo.breedinglifecycle.gametest;
 
+import static io.github.bernhardtwo.breedinglifecycle.gametest.TestSupport.lastAuditLines;
 import static io.github.bernhardtwo.breedinglifecycle.gametest.TestSupport.species;
 import static io.github.bernhardtwo.breedinglifecycle.gametest.TestSupport.withConfig;
 import static io.github.bernhardtwo.breedinglifecycle.gametest.TestSupport.withRandom;
 
+import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.pokemon.Pokemon;
+import com.google.gson.JsonObject;
 import io.github.bernhardtwo.breedinglifecycle.api.BreedingLifecycle;
 import io.github.bernhardtwo.breedinglifecycle.api.BreedingResult;
 import io.github.bernhardtwo.breedinglifecycle.mod.BreedingCounter;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 
 /** GameTests for {@code BreedingLifecycle.evaluate} and the breeding counter. */
 public class EvaluateGameTests implements FabricGameTest {
@@ -36,6 +41,73 @@ public class EvaluateGameTests implements FabricGameTest {
         h.assertTrue(BreedingCounter.get(p) == 0, "not a compound");
         BreedingCounter.increment(p);
         h.assertTrue(BreedingCounter.get(p) == 1, "increment replaces a corrupt value");
+        h.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void narrowNumericCounterIsRead(GameTestHelper h) {
+        var p = species("bulbasaur");
+        var tag = new CompoundTag();
+        tag.putByte("breedings", (byte) 3);
+        p.getPersistentData().put("breedinglifecycle", tag);
+        h.assertTrue(BreedingCounter.get(p) == 3, "byte 3, got " + BreedingCounter.get(p));
+        tag.putLong("breedings", 5L);
+        h.assertTrue(BreedingCounter.get(p) == 5, "long 5");
+        h.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void counterSurvivesJsonSaveAndLoad(GameTestHelper h) {
+        var a = species("bulbasaur");
+        BreedingCounter.increment(a);
+        BreedingCounter.increment(a);
+        BreedingCounter.increment(a);
+        var registries = h.getLevel().registryAccess();
+        var copy = Pokemon.Companion.loadFromJSON(registries, a.saveToJSON(registries, new JsonObject()));
+        h.assertTrue(BreedingCounter.get(copy) == 3, "persisted through JSON, got " + BreedingCounter.get(copy));
+        h.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void evaluateAuditsEachParentWithItsOwner(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        var a = species("bulbasaur");
+        var b = species("bulbasaur");
+        Cobblemon.INSTANCE.getStorage().getParty(player).add(a);
+        Cobblemon.INSTANCE.getStorage().getPC(player).add(b);
+        withRandom(() -> 0.0, () -> BreedingLifecycle.evaluate(a, b));
+        List<JsonObject> lines = lastAuditLines(2);
+        h.assertTrue(lines.size() == 2, "two lines");
+        for (int i = 0; i < 2; i++) {
+            var line = lines.get(i);
+            var parent = i == 0 ? a : b;
+            h.assertTrue(
+                    line.get("pokemonUuid")
+                            .getAsString()
+                            .equals(parent.getUuid().toString()),
+                    "uuid " + line);
+            h.assertTrue(line.get("source").getAsString().equals("api"), "source " + line);
+            h.assertTrue(line.get("result").getAsString().equals("lost"), "result " + line);
+            h.assertTrue(line.get("n").getAsInt() == 1, "n " + line);
+            h.assertTrue(line.get("species").getAsString().equals("cobblemon:bulbasaur"), "species " + line);
+            h.assertTrue(
+                    line.get("playerUuid").getAsString().equals(player.getUUID().toString()), "owner " + line);
+            h.assertTrue(
+                    line.get("playerName")
+                            .getAsString()
+                            .equals(player.getGameProfile().getName()),
+                    "name " + line);
+        }
+        h.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void wildParentIsAuditedWithoutOwner(GameTestHelper h) {
+        withRandom(() -> 0.999, () -> BreedingLifecycle.evaluate(species("bulbasaur"), species("bulbasaur")));
+        var line = lastAuditLines(1).get(0);
+        h.assertTrue(
+                line.get("playerUuid").isJsonNull() && line.get("playerName").isJsonNull(), "no owner " + line);
+        h.assertTrue(line.get("result").getAsString().equals("kept"), "kept " + line);
         h.succeed();
     }
 

@@ -39,6 +39,10 @@ public class EggEventAdapterGameTests implements FabricGameTest {
         withConfig(ENABLED, () -> withRandom(() -> 0.0, () -> collect(male, female, player)));
         h.assertTrue(party.get(0) == null && party.get(1) == null, "both lost parents left the party");
         h.assertTrue(BreedingCounter.get(male) == 1 && BreedingCounter.get(female) == 1, "counters 1");
+        h.assertTrue(
+                TestSupport.lastAuditLines(2).stream()
+                        .allMatch(line -> line.get("source").getAsString().equals("egg-event")),
+                "audited as egg-event");
         h.succeed();
     }
 

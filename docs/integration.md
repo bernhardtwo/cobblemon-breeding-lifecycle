@@ -61,8 +61,8 @@ public final class MyDaycare extends SavedData {
 
 ## The counter
 Each Pokémon carries its own count in `Pokemon.getPersistentData()`: compound `breedinglifecycle`, integer
-`breedings`. It is saved in party and PC, travels with trades and is visible to clients. A missing, non-integer or
-negative value reads as 0, so Pokémon from before the mod was installed start at their first breeding. The counter
+`breedings`. It is saved in party and PC, travels with trades and is visible to clients. Any numeric tag is read (Cobblemon's JSON
+storage brings small numbers back as bytes); a missing, non-numeric or negative value reads as 0, so Pokémon from before the mod was installed start at their first breeding. The counter
 never resets; a Pokémon at or past `maxBreedings` is lost on its next breeding.
 
 ## Breeding mods that fire COLLECT_EGG
