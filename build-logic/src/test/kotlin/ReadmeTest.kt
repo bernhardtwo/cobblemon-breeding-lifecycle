@@ -35,6 +35,13 @@ class ReadmeTest {
     fun bothReadmesHaveTheSameSectionCount() =
         assertEquals(h2(readme("README.md")).size, h2(readme("README.es.md")).size)
 
+    private fun sectionLinks(text: String): List<List<String>> =
+        text.split(Regex("(?m)^## ")).drop(1).map { section -> localLinks(section).map { it.replace(Regex("-es([-.])"), "-en$1") } }
+
+    @Test
+    fun `sections link the same targets in the same order`() =
+        assertEquals(sectionLinks(readme("README.md")), sectionLinks(readme("README.es.md")))
+
     @Test
     fun `no server or network name`() {
         for (name in readmes) assertFalse(readme(name).contains("diosesmon", ignoreCase = true), name)

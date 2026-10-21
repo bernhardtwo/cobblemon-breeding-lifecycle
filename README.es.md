@@ -62,7 +62,7 @@ Una guardería pequeña para probar la curva en el juego, desactivada por defect
 (`referenceDaycare.enabled`). `/daycare deposit <slot>` mete un Pokémon del equipo (dos plazas por jugador),
 `/daycare breed` los cría, `/daycare status` muestra padres, crianzas, la próxima probabilidad de pérdida y las crías
 pendientes, y `/daycare withdraw` devuelve todo al equipo o al PC. La compatibilidad sigue las reglas de Cobbreeding;
-la cría es la forma base de la especie de la madre (o del padre que no es Ditto), a nivel 1, sin huevos, tiempos ni herencia. Ver
+la cría es la primera etapa de la línea evolutiva de la madre (o del padre que no es Ditto), a nivel 1, sin huevos, tiempos ni herencia. Ver
 [docs/integration.md](docs/integration.md#reference-daycare) y
 [0009](docs/decisions/0009-reference-daycare.md).
 
@@ -81,7 +81,7 @@ cli/build/install/cli/bin/cli curve --lang es
 Opciones y códigos de salida: [docs/cli.md](docs/cli.md).
 
 ## Web
-Una página estática sin backend: sliders de `p1`, `r` y `maxBreedings` para la curva principal y la de Ditto,
+Una página estática sin backend: sliders de `p1` y `r` y un `maxBreedings` opcional para la curva principal y la de Ditto,
 gráficas de `p(n)` y `S(n)`, `E` frente a `1,00` y **Exportar JSON**, que da una config que el mod y el CLI aceptan.
 En español e inglés, con tema claro y oscuro. No está desplegada; se compila y se sirve `web/dist` desde cualquier
 hosting estático, con `WEB_BASE` si vive bajo una subruta:

@@ -61,7 +61,7 @@ A small daycare to try the curve in game, off by default because it creates Pok√
 (`referenceDaycare.enabled`). `/daycare deposit <slot>` moves a party Pok√©mon in (two places per player),
 `/daycare breed` breeds them, `/daycare status` shows parents, breedings, next loss chance and waiting offspring, and
 `/daycare withdraw` returns everything to the party or the PC. Compatibility follows Cobbreeding's rules; the
-offspring is the base form of the mother's species (or of the non-Ditto parent's) at level 1, with no eggs, timers or inheritance. See
+offspring is the first stage of the mother's evolutionary line (or of the non-Ditto parent's) at level 1, with no eggs, timers or inheritance. See
 [docs/integration.md](docs/integration.md#reference-daycare) and
 [0009](docs/decisions/0009-reference-daycare.md).
 
@@ -80,7 +80,7 @@ cli/build/install/cli/bin/cli curve --lang en
 Options and exit codes: [docs/cli.md](docs/cli.md).
 
 ## Web
-A static page with no backend: sliders for `p1`, `r` and `maxBreedings` of the main and Ditto curves, charts of
+A static page with no backend: sliders for `p1` and `r` and an optional `maxBreedings` for the main and Ditto curves, charts of
 `p(n)` and `S(n)`, `E` against `1.00`, and **Export JSON** for a config the mod and the CLI accept. Spanish and
 English, light and dark themes. It is not deployed; build it and serve `web/dist` from any static host, setting
 `WEB_BASE` when it lives under a sub-path:
