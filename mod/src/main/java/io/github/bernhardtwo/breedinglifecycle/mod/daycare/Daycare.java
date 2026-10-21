@@ -3,6 +3,7 @@ package io.github.bernhardtwo.breedinglifecycle.mod.daycare;
 import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.storage.party.PlayerPartyStore;
 import com.cobblemon.mod.common.api.storage.pc.PCStore;
+import com.cobblemon.mod.common.battles.BattleRegistry;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import io.github.bernhardtwo.breedinglifecycle.api.BreedingResult;
 import io.github.bernhardtwo.breedinglifecycle.api.ParentResult;
@@ -35,6 +36,9 @@ public final class Daycare {
         }
         if (slot < 1 || slot > PARTY_SIZE) {
             return text("empty_slot", slot);
+        }
+        if (BattleRegistry.getBattleByParticipatingPlayer(player) != null) {
+            return text("in_battle");
         }
         PlayerPartyStore party = party(player);
         Pokemon pokemon = party.get(slot - 1);

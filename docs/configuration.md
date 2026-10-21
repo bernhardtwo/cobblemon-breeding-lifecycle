@@ -36,7 +36,7 @@ See [formula](formula.md) for what `p1`, `r` and `maxBreedings` do.
 ## Mod switches
 | Block | Default | Effect |
 |---|---|---|
-| `referenceDaycare.enabled` | `false` | Enables the reference `/daycare` ([integration](integration.md#reference-daycare)). When `false`, `/daycare` stays registered and every subcommand answers that it is disabled; a reload switches it at once. |
+| `referenceDaycare.enabled` | `false` | Enables the reference `/daycare` ([integration](integration.md#reference-daycare)). When `false`, `/daycare` stays registered and every subcommand answers that it is disabled; a reload switches it at once. Switching it off also blocks `withdraw`: Pokémon left in the daycare stay there, safe, until it is switched on again. |
 | `eggEventAdapter.enabled` | `false` | Applies the loss to `COLLECT_EGG` from breeding mods ([integration](integration.md)). |
 | `audit.enabled` | `true` | Writes `logs/breeding-lifecycle/audit.jsonl`. |
 

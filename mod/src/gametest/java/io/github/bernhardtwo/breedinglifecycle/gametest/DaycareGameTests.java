@@ -8,7 +8,12 @@ import static io.github.bernhardtwo.breedinglifecycle.gametest.TestSupport.withC
 import static io.github.bernhardtwo.breedinglifecycle.gametest.TestSupport.withRandom;
 
 import com.cobblemon.mod.common.Cobblemon;
+import com.cobblemon.mod.common.CobblemonEntities;
 import com.cobblemon.mod.common.api.storage.party.PlayerPartyStore;
+import com.cobblemon.mod.common.battles.BattleBuilder;
+import com.cobblemon.mod.common.battles.BattleRegistry;
+import com.cobblemon.mod.common.battles.SuccessfulBattleStart;
+import com.cobblemon.mod.common.entity.pokemon.PokemonEntity;
 import com.cobblemon.mod.common.pokemon.Gender;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import io.github.bernhardtwo.breedinglifecycle.mod.BreedingCounter;
@@ -16,6 +21,7 @@ import io.github.bernhardtwo.breedinglifecycle.mod.daycare.BreedOutcome;
 import io.github.bernhardtwo.breedinglifecycle.mod.daycare.Daycare;
 import io.github.bernhardtwo.breedinglifecycle.mod.daycare.DaycareData;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
 import net.minecraft.gametest.framework.GameTest;
@@ -49,7 +55,7 @@ public class DaycareGameTests implements FabricGameTest {
         party(player).add(mon);
         withConfig(ENABLED, () -> Daycare.deposit(player, 1));
         h.assertTrue(party(player).get(0) == null, "left the party");
-        h.assertTrue(data(h).parents(player.getUUID()).equals(java.util.List.of(mon)), "in the daycare");
+        h.assertTrue(data(h).parents(player.getUUID()).equals(List.of(mon)), "in the daycare");
         h.succeed();
     }
 
@@ -215,6 +221,54 @@ public class DaycareGameTests implements FabricGameTest {
         });
         var pc = Cobblemon.INSTANCE.getStorage().getPC(player);
         h.assertTrue(pc.get(deposited.getUuid()) == deposited, "in the PC");
+        h.assertTrue(data(h).parents(player.getUUID()).isEmpty(), "daycare empty");
+        h.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void withdrawKeepsWhatFitsNowhere(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        var deposited = mon("charmander", MALE);
+        party(player).add(deposited);
+        var pc = Cobblemon.INSTANCE.getStorage().getPC(player);
+        var reply = new AtomicReference<Component>();
+        withConfig(ENABLED, () -> {
+            Daycare.deposit(player, 1);
+            for (int i = 0; i < 6; i++) {
+                party(player).add(species("bulbasaur"));
+            }
+            pc.resize(1, false, pokemon -> kotlin.Unit.INSTANCE);
+            while (pc.getFirstAvailablePosition() != null) {
+                pc.add(species("bulbasaur"));
+            }
+            reply.set(Daycare.withdraw(player));
+        });
+        h.assertTrue(keys(reply.get()).contains("breedinglifecycle.daycare.withdrawn_partly"), keys(reply.get()));
+        h.assertTrue(data(h).parents(player.getUUID()).equals(List.of(deposited)), "stays in the daycare");
+        h.assertTrue(pc.get(deposited.getUuid()) == null, "not in the PC");
+        h.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void depositIsRefusedDuringABattle(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        var mon = mon("charmander", MALE);
+        party(player).add(mon);
+        var wild = new PokemonEntity(h.getLevel(), species("bulbasaur"), CobblemonEntities.POKEMON);
+        wild.setPos(player.position());
+        h.getLevel().addFreshEntity(wild);
+        var start = BattleBuilder.INSTANCE.pve(player, wild);
+        h.assertTrue(start instanceof SuccessfulBattleStart, "battle started: " + start);
+        var battle = ((SuccessfulBattleStart) start).getBattle();
+        var reply = new AtomicReference<Component>();
+        try {
+            withConfig(ENABLED, () -> reply.set(Daycare.deposit(player, 1)));
+        } finally {
+            BattleRegistry.closeBattle(battle);
+            wild.discard();
+        }
+        h.assertTrue(keys(reply.get()).contains("breedinglifecycle.daycare.in_battle"), keys(reply.get()));
+        h.assertTrue(party(player).get(0) == mon, "still in the party");
         h.assertTrue(data(h).parents(player.getUUID()).isEmpty(), "daycare empty");
         h.succeed();
     }
