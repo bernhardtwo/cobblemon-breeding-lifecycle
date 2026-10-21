@@ -8,7 +8,8 @@
     "fabric-gametest": [
       "io.github.bernhardtwo.breedinglifecycle.gametest.SmokeGameTests",
       "io.github.bernhardtwo.breedinglifecycle.gametest.EvaluateGameTests",
-      "io.github.bernhardtwo.breedinglifecycle.gametest.CommandGameTests"
+      "io.github.bernhardtwo.breedinglifecycle.gametest.CommandGameTests",
+      "io.github.bernhardtwo.breedinglifecycle.gametest.EggEventAdapterGameTests"
     ]
   },
   "depends": {

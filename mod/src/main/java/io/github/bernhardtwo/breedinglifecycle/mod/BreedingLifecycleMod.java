@@ -1,5 +1,6 @@
 package io.github.bernhardtwo.breedinglifecycle.mod;
 
+import io.github.bernhardtwo.breedinglifecycle.mod.adapter.EggEventAdapter;
 import io.github.bernhardtwo.breedinglifecycle.mod.audit.AuditLog;
 import io.github.bernhardtwo.breedinglifecycle.mod.command.BreedingLifecycleCommand;
 import io.github.bernhardtwo.breedinglifecycle.mod.config.ConfigHolder;
@@ -31,6 +32,7 @@ public final class BreedingLifecycleMod implements DedicatedServerModInitializer
                 LOGGER.error("Config not reloaded, keeping the previous one: {}", String.join("; ", errors));
             }
         });
+        EggEventAdapter.register();
         CommandRegistrationCallback.EVENT.register(
                 (dispatcher, registries, environment) -> BreedingLifecycleCommand.register(dispatcher));
         LOGGER.info("Breeding Lifecycle loaded");

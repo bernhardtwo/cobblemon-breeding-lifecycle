@@ -54,7 +54,8 @@ on a background thread (`breedinglifecycle-audit`) so the server thread never wa
 ```
 
 `time` is ISO-8601 UTC; `playerUuid` and `playerName` are `null` when the owner is unknown (a wild Pokémon, an
-owner never seen by the server); `result` is `kept`, `lost` or `skipped`; `source` is `api`, `daycare` or `egg-event`.
+owner never seen by the server); `result` is `kept` or `lost` (the format reserves `skipped` for a parent that
+could not be removed safely, which Cobblemon 1.7.3 never needs, see [0008](decisions/0008-collect-egg-adapter.md)); `source` is `api`, `daycare` or `egg-event`.
 
 ## Loading and reload (mod)
 - At start the mod reads `config/breeding-lifecycle.json`, writing the default above when the file is missing.

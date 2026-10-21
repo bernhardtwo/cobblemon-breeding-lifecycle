@@ -64,3 +64,13 @@ Each Pokémon carries its own count in `Pokemon.getPersistentData()`: compound `
 `breedings`. It is saved in party and PC, travels with trades and is visible to clients. A missing, non-integer or
 negative value reads as 0, so Pokémon from before the mod was installed start at their first breeding. The counter
 never resets; a Pokémon at or past `maxBreedings` is lost on its next breeding.
+
+## Breeding mods that fire COLLECT_EGG
+With `eggEventAdapter.enabled` (default `false`), the mod listens to Cobblemon's `COLLECT_EGG` event:
+
+- When both parents are in a real party or PC, it calls `evaluate` with source `egg-event` and removes every lost
+  parent from its store. A parent in a pasture is untethered first.
+- When either parent is in no store, as with Cobbreeding's blank placeholder parents, the event is ignored and a
+  warning is logged; nothing is counted or audited.
+- In practice this covers Daycare+ 1.4.2 while the pasture owner is online. Cobbreeding, and Daycare+ eggs produced
+  while the owner is offline, cannot be covered without mixins. See [0008](decisions/0008-collect-egg-adapter.md).
