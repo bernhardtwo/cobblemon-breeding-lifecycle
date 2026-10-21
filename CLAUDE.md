@@ -26,6 +26,10 @@ See [java-style-tooling](docs/research/java-style-tooling.md) and [fabric-mod-pr
   `export JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home`.
 - `./scripts/check.sh` — the full suite: `./gradlew check` (tests, Spotless, Checkstyle, comment-length check, GameTests)
   then `npm --prefix web ci && npm --prefix web test && npm --prefix web run build`.
+- `./gradlew :mod:runGametest` — only the GameTests: a headless dedicated server with Cobblemon that runs every
+  `@GameTest` and exits (`All N required tests passed`); report in `mod/build/gametest/junit.xml`.
+  GameTests live in `mod/src/gametest/java/.../gametest/`, each class listed under `fabric-gametest` in
+  `mod/src/gametest/resources/fabric.mod.json`. Plain JUnit for code without Minecraft goes in `mod/src/test`.
 - `./gradlew spotlessApply` — run before every commit.
 
 ## Fabric and Cobblemon rules
