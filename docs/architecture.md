@@ -27,8 +27,9 @@ Root package `io.github.bernhardtwo.breedinglifecycle`:
 | `mod` | `BreedingLifecycleMod` (server entrypoint), `LifecycleService` (evaluation), `BreedingCounter` (counter in `persistentData`). |
 | `mod.config` | `ModConfig` (read, write default, validate switches), `ModSettings`, `ConfigHolder` (validate-then-swap reload). |
 | `mod.audit` | `AuditEntry` and `AuditLog`: JSON lines written on the `breedinglifecycle-audit` thread. |
-| `mod.command` | `/breedinglifecycle reload, info, curve`; text in `data/breedinglifecycle/lang/` ([0007](decisions/0007-server-side-translations.md)). |
+| `mod.command` | `/breedinglifecycle reload, info, curve` and `/daycare deposit, breed, status, withdraw`; text in `data/breedinglifecycle/lang/` ([0007](decisions/0007-server-side-translations.md)). |
 | `mod.adapter` | `EggEventAdapter` on `COLLECT_EGG` ([0008](decisions/0008-collect-egg-adapter.md)). |
+| `mod.daycare` | Reference daycare: `Compatibility`, `Offspring`, `DaycareData` (one `SavedData`), `Daycare` and `BreedOutcome` ([0009](decisions/0009-reference-daycare.md)). |
 
 **Start-up.** `onInitializeServer` opens `config/breeding-lifecycle.json` (writing the default if missing), creates
 the audit log under `logs/breeding-lifecycle/`, installs the `LifecycleService`, subscribes the adapter and registers
@@ -44,4 +45,4 @@ caller's job; the adapter does it for `COLLECT_EGG`.
 persistent store is crash-safe ([save-timing](research/save-timing.md), [0006](decisions/0006-breeding-atomicity.md)).
 
 **Tests.** JUnit in `mod/src/test` covers config and audit without Minecraft; GameTests in `mod/src/gametest` cover
-everything that needs Cobblemon: counter, `evaluate`, commands and translations, the adapter.
+everything that needs Cobblemon: counter, `evaluate`, commands and translations, the adapter, the reference daycare.
