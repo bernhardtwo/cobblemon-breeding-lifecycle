@@ -12,6 +12,8 @@ import picocli.CommandLine.Command;
 public final class Main {
     static final int USAGE_ERROR = 2;
 
+    private Main() {}
+
     public static void main(String[] args) {
         String lang = Messages.langIn(args);
         if (lang != null && (lang.equals("es") || lang.equals("en"))) {

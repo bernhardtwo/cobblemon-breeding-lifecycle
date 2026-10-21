@@ -24,8 +24,29 @@ printed on stderr) · `1` unexpected failure.
 ## Example
 ```text
 $ cli curve --lang en
+Curve (main curve): p1 = 0.3300, r = 0.7640, maxBreedings = none
+
+   n      p(n)      S(n)
+   1    0.3300    1.0000
+   2    0.4881    0.6700
+   3    0.6089    0.3430
+   4    0.7012    0.1341
+   5    0.7717    0.0401
+   6    0.8256    0.0091
+   7    0.8668    0.0016
+   8    0.8982    0.0002
+
+Expected offspring per parent:
+E = 2.1981
 ```
 
 ```text
 $ cli compare --lang es
+Curva (curva principal): p1 = 0,3300, r = 0,7640, maxBreedings = sin límite
+
+                               Crías/padre      Crías/pareja
+Sistema actual                      1,0000            2,0000
+Ciclo de crianza                    2,1981            4,3963
+
+Diferencia por padre: +1,1981 (+119,8%)
 ```
