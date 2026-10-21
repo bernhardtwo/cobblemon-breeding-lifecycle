@@ -11,4 +11,7 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    inputs.files(fileTree(rootDir.parentFile) { include("README.md", "README.es.md") })
+        .withPathSensitivity(PathSensitivity.RELATIVE)
+    inputs.dir(rootDir.resolve("../docs")).withPathSensitivity(PathSensitivity.RELATIVE)
 }
