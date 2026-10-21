@@ -3,11 +3,7 @@ package io.github.bernhardtwo.breedinglifecycle.core;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Loss curve of one parent: {@code p(n) = 1 - (1 - p1) * r^(n-1)}, and {@code p(n) = 1} once {@code n >= maxBreedings}.
- *
- * @param maxBreedings breeding number at which the parent is always lost, or {@code null} for no limit
- */
+/** Loss curve of one parent; {@code maxBreedings} is the breeding at which it is always lost, or null. */
 public record Curve(double p1, double r, Integer maxBreedings) {
     private static final double SURVIVAL_EPSILON = 1e-12;
 
