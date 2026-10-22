@@ -101,3 +101,18 @@ end. The party and the PC are not touched, so a crash leaves the breeding either
 the player in the audit lines, since a Pokémon held in the daycare has no store and so no owner of its own.
 `deposit` and `withdraw` are transfers between a Cobblemon store and that `SavedData`: a crash between their two
 saves can duplicate or drop that one Pokémon.
+
+## Audit log rotation
+`logs/breeding-lifecycle/audit.jsonl` only grows: the mod never rotates it, on purpose, and rotating it is the
+integrator's job (logrotate or an equivalent). The mod opens the file for each line it writes, so a rotation that
+moves the file away is safe; the next line starts a new file. An example for logrotate:
+
+```
+/path/to/server/logs/breeding-lifecycle/audit.jsonl {
+    weekly
+    rotate 8
+    compress
+    missingok
+    notifempty
+}
+```
