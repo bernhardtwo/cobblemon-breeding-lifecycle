@@ -61,11 +61,6 @@ public final class LifecycleService {
         return audit;
     }
 
-    /** Replaces the random source; {@code null} restores an unseeded one. Server thread only. */
-    public void setRandomForTesting(RandomSource random) {
-        this.rng = random == null ? new SeededRandom() : random;
-    }
-
     /** Rolls both parents, counts the breeding on both and audits it with {@code source}. */
     public BreedingResult evaluate(Pokemon parentA, Pokemon parentB, String source) {
         return evaluate(parentA, parentB, source, null);

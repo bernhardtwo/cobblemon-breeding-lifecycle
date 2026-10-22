@@ -5,9 +5,11 @@ import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.github.bernhardtwo.breedinglifecycle.core.RandomSource;
+import io.github.bernhardtwo.breedinglifecycle.core.SeededRandom;
 import io.github.bernhardtwo.breedinglifecycle.mod.LifecycleService;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -32,11 +34,21 @@ final class TestSupport {
     }
 
     static void withRandom(RandomSource rng, Runnable body) {
-        LifecycleService.get().setRandomForTesting(rng);
+        setRandom(rng);
         try {
             body.run();
         } finally {
-            LifecycleService.get().setRandomForTesting(null);
+            setRandom(null);
+        }
+    }
+
+    private static void setRandom(RandomSource rng) {
+        try {
+            Field field = LifecycleService.class.getDeclaredField("rng");
+            field.setAccessible(true);
+            field.set(LifecycleService.get(), rng == null ? new SeededRandom() : rng);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("cannot replace the random source", e);
         }
     }
 
