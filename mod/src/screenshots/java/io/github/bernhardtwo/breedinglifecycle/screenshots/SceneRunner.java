@@ -125,10 +125,7 @@ public final class SceneRunner {
             if (attempts >= MAX_ATTEMPTS) {
                 throw new IllegalStateException("both parents lost " + MAX_ATTEMPTS + " times");
             }
-            List<Action> retry = new ArrayList<>();
-            retry.add(new Command(new Step("daycare withdraw", "returned to your party or PC")));
-            retry.addAll(statusScene());
-            return retry;
+            return statusScene();
         }));
         return actions;
     }
@@ -171,7 +168,9 @@ public final class SceneRunner {
     }
 
     private List<Action> freshPair() {
-        List<Action> actions = new ArrayList<>(commands(Scenes.fresh(PLAYER)));
+        List<Action> actions = new ArrayList<>();
+        actions.add(new Command(Scenes.emptyDaycare()));
+        actions.addAll(commands(Scenes.fresh(PLAYER)));
         actions.add(until(this::trackPair, "a male and a female Charmander in the party"));
         return actions;
     }

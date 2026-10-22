@@ -49,6 +49,12 @@ class ScenesTest {
     }
 
     @Test
+    void emptyDaycareAcceptsBothReplies() {
+        assertThat(Scenes.emptyDaycare())
+                .isEqualTo(new Step("daycare withdraw", "returned to your party or PC", "Your daycare is empty."));
+    }
+
+    @Test
     void lossConfigForcesP1() {
         assertThat(Scenes.LOSS_CONFIG).contains("\"overrides\": { \"p1\": 1.0 }");
         assertThat(Scenes.DEFAULT_CONFIG)

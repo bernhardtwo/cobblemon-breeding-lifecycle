@@ -20,7 +20,7 @@ public final class ReplyWait {
 
     /** Whether this message, received at that time, is the expected reply. */
     public boolean accept(String message, long atMillis) {
-        return atMillis > sentAtMillis && message.contains(step.expected());
+        return atMillis > sentAtMillis && step.matches(message);
     }
 
     /** The failure to report once the timeout has passed without a reply. */

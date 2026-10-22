@@ -21,6 +21,13 @@ class ReplyWaitTest {
     }
 
     @Test
+    void acceptsTheAlternativeReply() {
+        Step step = new Step("daycare withdraw", "returned to your party or PC", "Your daycare is empty.");
+        ReplyWait wait = new ReplyWait(step, 0, 30_000);
+        assertThat(wait.accept("Your daycare is empty.", 5)).isTrue();
+    }
+
+    @Test
     void timesOutWithTheCommandAndText() {
         ReplyWait wait = new ReplyWait(new Step("daycare breed", "was born"), 0, 30_000);
         assertThat(wait.failure(29_999)).isEmpty();

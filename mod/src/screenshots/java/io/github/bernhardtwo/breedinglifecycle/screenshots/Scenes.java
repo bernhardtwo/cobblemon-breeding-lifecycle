@@ -21,6 +21,11 @@ public final class Scenes {
                 new Step("pokegive charmander gender=female level=10", "Gave Charmander to"));
     }
 
+    /** Empties this player's daycare, whatever it holds from an earlier run. */
+    public static Step emptyDaycare() {
+        return new Step("daycare withdraw", "returned to your party or PC", "Your daycare is empty.");
+    }
+
     public static List<Step> status(int male, int female) {
         return List.of(
                 new Step("daycare deposit " + male, DEPOSITED),
