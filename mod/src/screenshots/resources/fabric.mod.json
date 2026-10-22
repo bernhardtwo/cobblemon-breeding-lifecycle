@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "breedinglifecycle-screenshots",
+  "version": "0.0.0",
+  "name": "Breeding Lifecycle in-game screenshots",
+  "description": "Development-only client that takes the in-game screenshots; never shipped.",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["io.github.bernhardtwo.breedinglifecycle.screenshots.ScreenshotsClient"]
+  },
+  "depends": {
+    "breedinglifecycle": "*",
+    "cobblemon": "*",
+    "fabric-api": "*"
+  }
+}

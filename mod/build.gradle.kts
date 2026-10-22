@@ -21,6 +21,22 @@ val gametest: SourceSet by sourceSets.creating {
     runtimeClasspath += sourceSets.main.get().runtimeClasspath + sourceSets.main.get().output
 }
 
+val screenshots: SourceSet by sourceSets.creating {
+    compileClasspath += sourceSets.main.get().compileClasspath + sourceSets.main.get().output
+    runtimeClasspath += sourceSets.main.get().runtimeClasspath + sourceSets.main.get().output
+}
+
+sourceSets.test {
+    compileClasspath += screenshots.output
+    runtimeClasspath += screenshots.output
+}
+
+val screenshotsProperties = listOf(
+    "breedinglifecycle.screenshots",
+    "breedinglifecycle.screenshots.serverConfig",
+    "breedinglifecycle.screenshots.output",
+)
+
 dependencies {
     minecraft("com.mojang:minecraft:${property("minecraft_version")}")
     mappings(loom.layered {
@@ -50,8 +66,19 @@ loom {
         create("breedinglifecycle-gametest") {
             sourceSet(gametest)
         }
+        create("breedinglifecycle-screenshots") {
+            sourceSet(screenshots)
+        }
     }
     runs {
+        named("client") {
+            source(screenshots)
+            runDir("run-client")
+            programArgs("--width", "1600", "--height", "900")
+            for (name in screenshotsProperties) {
+                providers.gradleProperty(name).orNull?.let { vmArg("-D$name=$it") }
+            }
+        }
         create("gametest") {
             server()
             name("Game Test")
@@ -88,4 +115,21 @@ tasks.named("runGametest") {
 
 tasks.test {
     dependsOn("runGametest")
+}
+
+val checkDistributedJar by tasks.registering {
+    description = "Fails when the distributed jar contains files from the screenshots source set."
+    group = "verification"
+    val jar = tasks.named<AbstractArchiveTask>("remapJar").flatMap { it.archiveFile }
+    inputs.file(jar)
+    doLast {
+        val leaked = zipTree(jar.get().asFile).matching { include("**/*screenshots*/**", "**/*screenshots*") }.files
+        if (leaked.isNotEmpty()) {
+            throw GradleException("distributed jar contains development files: ${leaked.map { it.name }}")
+        }
+    }
+}
+
+tasks.check {
+    dependsOn(checkDistributedJar)
 }
