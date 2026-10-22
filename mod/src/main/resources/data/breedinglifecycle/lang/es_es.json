@@ -31,5 +31,7 @@
   "breedinglifecycle.daycare.status.offspring": "Crías pendientes (%s): %s",
   "breedinglifecycle.daycare.withdrawn": "%s Pokémon volvieron a tu equipo o a tu PC.",
   "breedinglifecycle.daycare.withdrawn_partly": "%s Pokémon volvieron a tu equipo o a tu PC; %s no cupieron y se quedan en la guardería.",
-  "breedinglifecycle.daycare.in_battle": "No puedes dejar un Pokémon en la guardería durante un combate."
+  "breedinglifecycle.daycare.in_battle": "No puedes dejar un Pokémon en la guardería durante un combate.",
+  "breedinglifecycle.daycare.sent_out": "%s está fuera de su Poké Ball. Regrésalo antes de dejarlo en la guardería.",
+  "breedinglifecycle.daycare.withdraw_in_battle": "No puedes retirar de la guardería durante un combate."
 }

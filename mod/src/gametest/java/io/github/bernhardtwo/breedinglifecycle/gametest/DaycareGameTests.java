@@ -301,6 +301,54 @@ public class DaycareGameTests implements FabricGameTest {
         h.succeed();
     }
 
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void depositIsRefusedWhileSentOut(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        var mon = mon("charmander", MALE);
+        party(player).add(mon);
+        mon.sendOut(h.getLevel(), player.position(), null, entity -> kotlin.Unit.INSTANCE);
+        h.assertTrue(mon.getEntity() != null, "sent out before deposit");
+        var reply = new AtomicReference<Component>();
+        try {
+            withConfig(ENABLED, () -> reply.set(Daycare.deposit(player, 1)));
+            h.assertTrue(keys(reply.get()).contains("breedinglifecycle.daycare.sent_out"), keys(reply.get()));
+            h.assertTrue(party(player).get(0) == mon, "still in the party");
+            h.assertTrue(mon.getEntity() != null, "still sent out");
+            h.assertTrue(data(h).parents(player.getUUID()).isEmpty(), "daycare empty");
+        } finally {
+            mon.recall();
+        }
+        h.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void withdrawIsRefusedDuringABattle(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        var mon = mon("charmander", MALE);
+        party(player).add(mon);
+        party(player).add(mon("bulbasaur", MALE));
+        var reply = new AtomicReference<Component>();
+        withConfig(ENABLED, () -> {
+            Daycare.deposit(player, 1);
+            var wild = new PokemonEntity(h.getLevel(), species("bulbasaur"), CobblemonEntities.POKEMON);
+            wild.setPos(player.position());
+            h.getLevel().addFreshEntity(wild);
+            var start = BattleBuilder.INSTANCE.pve(player, wild);
+            h.assertTrue(start instanceof SuccessfulBattleStart, "battle started: " + start);
+            var battle = ((SuccessfulBattleStart) start).getBattle();
+            try {
+                reply.set(Daycare.withdraw(player));
+            } finally {
+                BattleRegistry.closeBattle(battle);
+                wild.discard();
+            }
+        });
+        h.assertTrue(keys(reply.get()).contains("breedinglifecycle.daycare.withdraw_in_battle"), keys(reply.get()));
+        h.assertTrue(data(h).parents(player.getUUID()).equals(List.of(mon)), "stays in the daycare");
+        h.assertTrue(party(player).occupied() == 1, "party unchanged");
+        h.succeed();
+    }
+
     private static BreedOutcome depositAndBreed(ServerPlayer player, Pokemon a, Pokemon b, double roll) {
         party(player).add(a);
         party(player).add(b);

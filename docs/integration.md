@@ -83,10 +83,10 @@ nothing is left stuck. Any player can use it:
 
 | Command | Effect |
 |---|---|
-| `/daycare deposit <slot 1-6>` | Moves that party Pokémon into the daycare. Two places per player; refused during a battle. |
+| `/daycare deposit <slot 1-6>` | Moves that party Pokémon into the daycare. Two places per player; refused during a battle or while that Pokémon is out of its Poké Ball. |
 | `/daycare breed` | Breeds the two deposited Pokémon, if they are compatible. |
 | `/daycare status` | Parents with their breedings and next loss chance, and the offspring waiting. |
-| `/daycare withdraw` | Returns parents and offspring to the party, or to the PC when the party is full. What fits nowhere stays. |
+| `/daycare withdraw` | Returns parents and offspring to the party, or to the PC when the party is full. What fits nowhere stays. Refused during a battle. |
 
 Compatibility follows Cobbreeding: no parent in the `UNDISCOVERED` egg group or with `neutered = true` in its
 persistent data; Ditto breeds with anything but another Ditto; a genderless Pokémon only with Ditto; otherwise a

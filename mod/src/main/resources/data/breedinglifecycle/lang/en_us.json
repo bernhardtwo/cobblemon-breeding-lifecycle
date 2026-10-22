@@ -31,5 +31,7 @@
   "breedinglifecycle.daycare.status.offspring": "Waiting offspring (%s): %s",
   "breedinglifecycle.daycare.withdrawn": "%s Pokémon returned to your party or PC.",
   "breedinglifecycle.daycare.withdrawn_partly": "%s Pokémon returned to your party or PC; %s did not fit and stay in the daycare.",
-  "breedinglifecycle.daycare.in_battle": "You cannot leave a Pokémon at the daycare during a battle."
+  "breedinglifecycle.daycare.in_battle": "You cannot leave a Pokémon at the daycare during a battle.",
+  "breedinglifecycle.daycare.sent_out": "%s is out of its Poké Ball. Return it before leaving it at the daycare.",
+  "breedinglifecycle.daycare.withdraw_in_battle": "You cannot withdraw from the daycare during a battle."
 }
