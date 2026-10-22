@@ -78,7 +78,8 @@ With `eggEventAdapter.enabled` (default `false`), the mod listens to Cobblemon's
 ## Reference daycare
 The mod ships a small daycare of its own, `/daycare`, as a test bench for the curve. It is off by default
 (`referenceDaycare.enabled`, see [configuration](configuration.md)) because it creates Pokémon for free; when off,
-every subcommand answers that it is disabled and changes nothing. Any player can use it:
+`deposit` and `breed` answer that it is disabled and change nothing, while `status` and `withdraw` keep working so
+nothing is left stuck. Any player can use it:
 
 | Command | Effect |
 |---|---|

@@ -43,6 +43,9 @@ public class DaycareGameTests implements FabricGameTest {
         var keys = new ArrayList<String>();
         run(h, player, 0, "daycare deposit 1", "en_us", keys);
         h.assertTrue(keys.contains("breedinglifecycle.daycare.disabled"), keys.toString());
+        var breedKeys = new ArrayList<String>();
+        run(h, player, 0, "daycare breed", "en_us", breedKeys);
+        h.assertTrue(breedKeys.contains("breedinglifecycle.daycare.disabled"), breedKeys.toString());
         h.assertTrue(party(player).get(0) == mon, "still in the party");
         h.assertTrue(data(h).parents(player.getUUID()).isEmpty(), "daycare empty");
         h.succeed();
@@ -269,6 +272,31 @@ public class DaycareGameTests implements FabricGameTest {
         }
         h.assertTrue(keys(reply.get()).contains("breedinglifecycle.daycare.in_battle"), keys(reply.get()));
         h.assertTrue(party(player).get(0) == mon, "still in the party");
+        h.assertTrue(data(h).parents(player.getUUID()).isEmpty(), "daycare empty");
+        h.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void statusWorksWhileDisabled(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        party(player).add(mon("charmander", MALE));
+        withConfig(ENABLED, () -> Daycare.deposit(player, 1));
+        var keys = new ArrayList<String>();
+        run(h, player, 0, "daycare status", "en_us", keys);
+        h.assertTrue(keys.contains("breedinglifecycle.daycare.status.parent"), keys.toString());
+        h.assertFalse(keys.contains("breedinglifecycle.daycare.disabled"), keys.toString());
+        h.succeed();
+    }
+
+    @GameTest(template = EMPTY_STRUCTURE)
+    public void withdrawWorksWhileDisabled(GameTestHelper h) {
+        ServerPlayer player = h.makeMockServerPlayerInLevel();
+        var mon = mon("charmander", MALE);
+        party(player).add(mon);
+        withConfig(ENABLED, () -> Daycare.deposit(player, 1));
+        var reply = Daycare.withdraw(player);
+        h.assertTrue(keys(reply).contains("breedinglifecycle.daycare.withdrawn"), keys(reply));
+        h.assertTrue(party(player).get(0) == mon, "back in the party");
         h.assertTrue(data(h).parents(player.getUUID()).isEmpty(), "daycare empty");
         h.succeed();
     }
