@@ -10,12 +10,15 @@ Regenerate the CLI ones with `./scripts/cli-screenshots.sh` (needs `freeze`: `br
 | `cli-simulate-es.png` | `cli simulate --lang es --parents 10000 --seed 42` | yes |
 | `cli-compare-en.png` | `cli compare --lang en`: current system (1 per parent) vs the curve (2.1981) | yes |
 | `cli-compare-es.png` | `cli compare --lang es` | yes |
-| `ingame-daycare-status.png` | `/daycare status` in the CurseForge client: parents, breedings, next loss chance, offspring | not taken: see [TODO.md](TODO.md) |
-| `ingame-info.png` | `/breedinglifecycle info 1` in the CurseForge client | not taken: see [TODO.md](TODO.md) |
-| `ingame-loss.png` | `/daycare breed` with `p1 = 1.0`: both parents lost | not taken: see [TODO.md](TODO.md) |
+| `ingame-daycare-status.png` | `/daycare deposit` ×2, `breed`, `status` on the default curve: who stayed, `breedings: 1`, next loss chance `0.4881`, `Waiting offspring (1): Charmander` | yes |
+| `ingame-info.png` | `/daycare withdraw`, then `/breedinglifecycle info <slot>` of a parent that came back: `breedings: 1, loss chance on the next breeding: 0.4881` | yes |
+| `ingame-loss.png` | `/daycare breed` with `"overrides": { "p1": 1.0 }`: `Parent 1 is gone` and `Parent 2 is gone`, each with `loss chance 1.0000` | yes |
+| `ingame-refused.png` | `/daycare deposit` of a Charmander out of its Poké Ball: `Charmander is out of its Poké Ball. Return it before leaving it at the daycare.` | yes |
 
-The in-game ones are taken by hand with the real CurseForge client on the live server of
-[live-test.md](../live-test.md) (`live-server/start.sh`, `loss.sh`, `reset.sh`), as [TODO.md](TODO.md) says.
+Regenerate the in-game ones with `scripts/ingame-screenshots.sh auto` (JDK 21; a Minecraft window opens and closes
+on its own, about five minutes). They come from the development client, `./gradlew :mod:runClient`, with Cobblemon
+and this mod only, not the CurseForge pack's other mods; the client is English, 1600×900, GUI scale 2.
+How it works: [in-game screenshots](../ingame-screenshots.md).
 
 ## Web
 
