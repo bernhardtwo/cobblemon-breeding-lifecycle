@@ -86,7 +86,7 @@ server() {
   wait_for "$PLAYER joined the game" 1800
   send "pokegiveother $PLAYER charmander gender=male level=10"
   send "pokegiveother $PLAYER charmander gender=female level=10"
-  echo "gave two Charmander to $PLAYER; follow docs/screenshots/TODO.md"
+  echo "gave two Charmander to $PLAYER; docs/ingame-screenshots.md lists the commands"
   wait
 }
 
@@ -106,10 +106,19 @@ auto() {
     --args="--username $PLAYER --quickPlayMultiplayer localhost:25565" >"$CLIENT_LOG" 2>&1 &
   CLIENT=$!
   echo "client starting, log: $CLIENT_LOG"
-  if ! wait_for '\[screenshots\] \(DONE\|FAILED\)' 1200 "$CLIENT_LOG" 2>/dev/null; then
-    echo "timed out waiting for: [screenshots] DONE" >&2
-    exit 1
-  fi
+  local waited=0
+  until grep -q '\[screenshots\] \(DONE\|FAILED\)' "$CLIENT_LOG" 2>/dev/null; do
+    if ! kill -0 "$CLIENT" 2>/dev/null; then
+      echo "client exited without [screenshots] DONE; see $CLIENT_LOG" >&2
+      exit 1
+    fi
+    if [ "$waited" -ge 1200 ]; then
+      echo "timed out waiting for: [screenshots] DONE" >&2
+      exit 1
+    fi
+    sleep 1
+    waited=$((waited + 1))
+  done
   if grep -q '\[screenshots\] FAILED' "$CLIENT_LOG"; then
     grep -o '\[screenshots\] FAILED.*' "$CLIENT_LOG" | head -1 >&2
     exit 1
