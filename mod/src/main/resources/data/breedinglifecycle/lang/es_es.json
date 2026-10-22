@@ -11,7 +11,7 @@
   "breedinglifecycle.reload.ok": "Configuración de Breeding Lifecycle recargada.",
   "breedinglifecycle.reload.failed": "No se recargó la configuración; sigue activa la anterior. Errores:",
   "breedinglifecycle.reload.error": "- %s",
-  "breedinglifecycle.daycare.disabled": "La guardería de referencia está desactivada en este servidor.",
+  "breedinglifecycle.daycare.disabled": "La guardería de referencia está desactivada en este servidor. Aún puedes ver y retirar lo que dejaste.",
   "breedinglifecycle.daycare.empty_slot": "El hueco %s de tu equipo está vacío.",
   "breedinglifecycle.daycare.full": "La guardería ya tiene dos Pokémon.",
   "breedinglifecycle.daycare.deposit_failed": "%s no pudo salir de tu equipo.",
@@ -31,5 +31,7 @@
   "breedinglifecycle.daycare.status.offspring": "Crías pendientes (%s): %s",
   "breedinglifecycle.daycare.withdrawn": "%s Pokémon volvieron a tu equipo o a tu PC.",
   "breedinglifecycle.daycare.withdrawn_partly": "%s Pokémon volvieron a tu equipo o a tu PC; %s no cupieron y se quedan en la guardería.",
-  "breedinglifecycle.daycare.in_battle": "No puedes dejar un Pokémon en la guardería durante un combate."
+  "breedinglifecycle.daycare.in_battle": "No puedes dejar un Pokémon en la guardería durante un combate.",
+  "breedinglifecycle.daycare.sent_out": "%s está fuera de su Poké Ball. Regrésalo antes de dejarlo en la guardería.",
+  "breedinglifecycle.daycare.withdraw_in_battle": "No puedes retirar de la guardería durante un combate."
 }

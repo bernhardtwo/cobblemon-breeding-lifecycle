@@ -78,14 +78,15 @@ With `eggEventAdapter.enabled` (default `false`), the mod listens to Cobblemon's
 ## Reference daycare
 The mod ships a small daycare of its own, `/daycare`, as a test bench for the curve. It is off by default
 (`referenceDaycare.enabled`, see [configuration](configuration.md)) because it creates Pokémon for free; when off,
-every subcommand answers that it is disabled and changes nothing. Any player can use it:
+`deposit` and `breed` answer that it is disabled and change nothing, while `status` and `withdraw` keep working so
+nothing is left stuck. Any player can use it:
 
 | Command | Effect |
 |---|---|
-| `/daycare deposit <slot 1-6>` | Moves that party Pokémon into the daycare. Two places per player; refused during a battle. |
+| `/daycare deposit <slot 1-6>` | Moves that party Pokémon into the daycare. Two places per player; refused during a battle or while that Pokémon is out of its Poké Ball. |
 | `/daycare breed` | Breeds the two deposited Pokémon, if they are compatible. |
 | `/daycare status` | Parents with their breedings and next loss chance, and the offspring waiting. |
-| `/daycare withdraw` | Returns parents and offspring to the party, or to the PC when the party is full. What fits nowhere stays. |
+| `/daycare withdraw` | Returns parents and offspring to the party, or to the PC when the party is full. What fits nowhere stays. Refused during a battle. |
 
 Compatibility follows Cobbreeding: no parent in the `UNDISCOVERED` egg group or with `neutered = true` in its
 persistent data; Ditto breeds with anything but another Ditto; a genderless Pokémon only with Ditto; otherwise a
@@ -100,3 +101,18 @@ end. The party and the PC are not touched, so a crash leaves the breeding either
 the player in the audit lines, since a Pokémon held in the daycare has no store and so no owner of its own.
 `deposit` and `withdraw` are transfers between a Cobblemon store and that `SavedData`: a crash between their two
 saves can duplicate or drop that one Pokémon.
+
+## Audit log rotation
+`logs/breeding-lifecycle/audit.jsonl` only grows: the mod never rotates it, on purpose, and rotating it is the
+integrator's job (logrotate or an equivalent). The mod opens the file for each line it writes, so a rotation that
+moves the file away is safe; the next line starts a new file. An example for logrotate:
+
+```
+/path/to/server/logs/breeding-lifecycle/audit.jsonl {
+    weekly
+    rotate 8
+    compress
+    missingok
+    notifempty
+}
+```

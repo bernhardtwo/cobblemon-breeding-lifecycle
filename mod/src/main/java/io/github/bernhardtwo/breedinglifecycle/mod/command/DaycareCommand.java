@@ -12,7 +12,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
-/** {@code /daycare deposit <slot> | breed | status | withdraw}; always registered, active only when enabled. */
+/** {@code /daycare deposit <slot> | breed | status | withdraw}; always registered; deposit and breed need it enabled. */
 public final class DaycareCommand {
     private static final int PARTY_SIZE = 6;
 

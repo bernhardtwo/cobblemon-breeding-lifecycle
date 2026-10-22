@@ -45,13 +45,13 @@ public final class Daycare {
         if (pokemon == null) {
             return text("empty_slot", slot);
         }
+        if (pokemon.getEntity() != null) {
+            return text("sent_out", name(pokemon));
+        }
         DaycareData data = data(player);
         List<Pokemon> parents = data.parents(player.getUUID());
         if (parents.size() >= SLOTS) {
             return text("full");
-        }
-        if (pokemon.getEntity() != null) {
-            pokemon.recall();
         }
         if (!party.remove(pokemon)) {
             return text("deposit_failed", name(pokemon));
@@ -98,9 +98,6 @@ public final class Daycare {
 
     /** The parents with their counters and next loss chance, and the pending offspring. */
     public static Component status(ServerPlayer player) {
-        if (!enabled()) {
-            return text("disabled");
-        }
         DaycareData data = data(player);
         List<Pokemon> parents = data.parents(player.getUUID());
         List<Pokemon> offspring = data.offspring(player.getUUID());
@@ -120,8 +117,8 @@ public final class Daycare {
 
     /** Returns parents and offspring to the party, or to the PC when the party is full; what fits nowhere stays. */
     public static Component withdraw(ServerPlayer player) {
-        if (!enabled()) {
-            return text("disabled");
+        if (BattleRegistry.getBattleByParticipatingPlayer(player) != null) {
+            return text("withdraw_in_battle");
         }
         DaycareData data = data(player);
         List<Pokemon> parents = data.parents(player.getUUID());

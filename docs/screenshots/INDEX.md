@@ -10,12 +10,12 @@ Regenerate the CLI ones with `./scripts/cli-screenshots.sh` (needs `freeze`: `br
 | `cli-simulate-es.png` | `cli simulate --lang es --parents 10000 --seed 42` | yes |
 | `cli-compare-en.png` | `cli compare --lang en`: current system (1 per parent) vs the curve (2.1981) | yes |
 | `cli-compare-es.png` | `cli compare --lang es` | yes |
-| `ingame-daycare-status.png` | `/daycare status` in a dev client: parents, breedings, next loss chance, offspring | not taken: see [TODO.md](TODO.md) |
-| `ingame-info.png` | `/breedinglifecycle info 1` in a dev client | not taken: see [TODO.md](TODO.md) |
+| `ingame-daycare-status.png` | `/daycare status` in the CurseForge client: parents, breedings, next loss chance, offspring | not taken: see [TODO.md](TODO.md) |
+| `ingame-info.png` | `/breedinglifecycle info 1` in the CurseForge client | not taken: see [TODO.md](TODO.md) |
 | `ingame-loss.png` | `/daycare breed` with `p1 = 1.0`: both parents lost | not taken: see [TODO.md](TODO.md) |
 
-The in-game ones are set up with `./scripts/ingame-screenshots.sh server|client|loss` and taken by hand, as
-[TODO.md](TODO.md) says.
+The in-game ones are taken by hand with the real CurseForge client on the live server of
+[live-test.md](../live-test.md) (`live-server/start.sh`, `loss.sh`, `reset.sh`), as [TODO.md](TODO.md) says.
 
 ## Web
 

@@ -1,15 +1,15 @@
 # In-game screenshots to take
 
 Not taken automatically: driving the client means typing chat commands with `osascript` into whatever window is
-in front, which is unsafe on a desktop someone is using. Take these three by hand; the world setup is scripted.
+in front, which is unsafe on a desktop someone is using. Take these three by hand with the real CurseForge client;
+the server is scripted.
 
 ## World setup
-1. Terminal 1: `scripts/ingame-screenshots.sh server`. It writes `mod/run/server.properties` (`online-mode=false`,
-   flat world, creative), makes `Dev` an operator, and writes `mod/run/config/breeding-lifecycle.json` with
-   `"referenceDaycare": { "enabled": true }` and `"overrides": {}`.
-2. Terminal 2, once terminal 1 says `server ready`: `scripts/ingame-screenshots.sh client`. The dev client joins
-   `localhost:25565` as `Dev`.
-3. When `Dev` joins, the server gives it a male and a female Charmander, in party slots 1 and 2.
+The server is the live one from [live-test.md](../live-test.md), in `~/projects/diosesmon-crianza/live-server/`;
+the client is the real CurseForge pack, unchanged.
+1. Terminal 1: `live-server/start.sh`. Wait for `server ready on localhost:25565`.
+2. Open the pack in CurseForge without changing anything, then Multiplayer, Direct Connection, `localhost`.
+3. On joining, the server gives you a male and a female Charmander, in party slots 1 and 2 when the party is empty.
 4. Set the client language to English, hide nothing; take each screenshot of the Minecraft window with
    `screencapture -l <window id> -o <file>` or `Cmd+Shift+4`, then `Space`, with the chat still open (`T`).
 
@@ -33,8 +33,8 @@ Capture after `info`: `Slot 1: Charmander, breedings: 1, loss chance on the next
 a parent that came back).
 
 ## 3. `ingame-loss.png`
-1. Terminal 3: `scripts/ingame-screenshots.sh loss` (writes `"overrides": { "p1": 1.0 }` and runs
-   `breedinglifecycle reload` on the server console).
+1. Terminal 2: `live-server/loss.sh` (writes `"overrides": { "p1": 1.0 }` and runs `breedinglifecycle reload` on
+   the server console). `live-server/reset.sh` goes back to the default curve afterwards.
 2. In chat, with a male and a female Charmander in slots 1 and 2 (move them there from the party screen if needed):
 ```
 /daycare deposit 1

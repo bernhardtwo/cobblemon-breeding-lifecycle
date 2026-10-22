@@ -11,7 +11,7 @@
   "breedinglifecycle.reload.ok": "Breeding Lifecycle config reloaded.",
   "breedinglifecycle.reload.failed": "Config not reloaded, the previous one stays active. Errors:",
   "breedinglifecycle.reload.error": "- %s",
-  "breedinglifecycle.daycare.disabled": "The reference daycare is disabled on this server.",
+  "breedinglifecycle.daycare.disabled": "The reference daycare is disabled on this server. You can still check and withdraw what you left.",
   "breedinglifecycle.daycare.empty_slot": "Slot %s of your party is empty.",
   "breedinglifecycle.daycare.full": "The daycare already holds two Pokémon.",
   "breedinglifecycle.daycare.deposit_failed": "%s could not leave your party.",
@@ -31,5 +31,7 @@
   "breedinglifecycle.daycare.status.offspring": "Waiting offspring (%s): %s",
   "breedinglifecycle.daycare.withdrawn": "%s Pokémon returned to your party or PC.",
   "breedinglifecycle.daycare.withdrawn_partly": "%s Pokémon returned to your party or PC; %s did not fit and stay in the daycare.",
-  "breedinglifecycle.daycare.in_battle": "You cannot leave a Pokémon at the daycare during a battle."
+  "breedinglifecycle.daycare.in_battle": "You cannot leave a Pokémon at the daycare during a battle.",
+  "breedinglifecycle.daycare.sent_out": "%s is out of its Poké Ball. Return it before leaving it at the daycare.",
+  "breedinglifecycle.daycare.withdraw_in_battle": "You cannot withdraw from the daycare during a battle."
 }
