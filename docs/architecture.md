@@ -4,7 +4,7 @@
 |---|---|---|
 | `core` | Gson | Loss curve, per-parent roll, seeded RNG, Monte Carlo simulator, JSON config parsing and validation. |
 | `cli` | `core`, picocli | Terminal simulator: `curve`, `simulate`, `compare`. |
-| `mod` | `core`, Cobblemon, Fabric API | Server-only Fabric mod: Loom, `core` nested in the jar, GameTests in `src/gametest`. |
+| `mod` | `core`, Cobblemon, Fabric API | Server-only Fabric mod: Loom, `core` nested in the jar, GameTests in `src/gametest`, a dev-only screenshots client in `src/screenshots`. |
 | `web` | Vite, TypeScript, `@fontsource` | Static simulator: curve, charts, `E` and config export in the browser ([web](web.md)). |
 | `test-vectors/` | — | `curve-cases.json`, checked by the `core` and `web` tests. |
 
@@ -46,6 +46,10 @@ persistent store is crash-safe ([save-timing](research/save-timing.md), [0006](d
 
 **Tests.** JUnit in `mod/src/test` covers config and audit without Minecraft; GameTests in `mod/src/gametest` cover
 everything that needs Cobblemon: counter, `evaluate`, commands and translations, the adapter, the reference daycare.
+
+**Screenshots client.** `mod/src/screenshots` is a client mod loaded only by `runClient` and active only with
+`-Dbreedinglifecycle.screenshots=true`; it takes the in-game screenshots ([in-game screenshots](ingame-screenshots.md)).
+It is never in the distributed jar: `checkDistributedJar`, part of `check`, fails if any of it gets in.
 
 ## The web simulator
 `web/src` has no framework:

@@ -233,9 +233,8 @@ Breeding Lifecycle config reloaded.
   fail to parse on this version, and Cobblemon and Fight or Flight log `No data fixer registered` for their entities.
 
 ## Still to verify with a client
-Joining with the real CurseForge client to `localhost`, as described in [screenshots/TODO.md](screenshots/TODO.md):
-- the two Charmander arrive on join;
-- `/daycare deposit`, `breed`, `status`, `withdraw` and `/breedinglifecycle info` in chat, in both languages;
-- a loss with `loss.sh` (`p1 = 1.0`);
-- `/daycare withdraw` refused during a battle, and `/daycare deposit` refused while the Pokémon is out of its
-  Poké Ball.
+The development client now covers, in English, `/daycare deposit`, `breed`, `status`, `withdraw`,
+`/breedinglifecycle info`, a loss with `p1 = 1.0` and `deposit` refused while the Pokémon is out of its Poké Ball
+([in-game screenshots](ingame-screenshots.md)). Still open, with the real CurseForge client on this server:
+- the same commands next to the pack's other mods, and in Spanish;
+- `/daycare withdraw` refused during a battle.

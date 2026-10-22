@@ -111,5 +111,21 @@ Design: [docs/architecture.md](docs/architecture.md). Decisions: [docs/decisions
 
 ## Screenshots
 Every screenshot, what it shows and whether it works: [docs/screenshots/INDEX.md](docs/screenshots/INDEX.md). The
-in-game ones (`/daycare status`, `/breedinglifecycle info` and a loss) are not taken yet; how to take them is in
-[docs/screenshots/TODO.md](docs/screenshots/TODO.md).
+in-game ones come from the development client (Cobblemon and this mod, without the pack's other mods) and are
+regenerated with `scripts/ingame-screenshots.sh auto` ([docs/ingame-screenshots.md](docs/ingame-screenshots.md)).
+
+`/daycare status` after one breeding on the default curve:
+
+![daycare status](docs/screenshots/ingame-daycare-status.png)
+
+`/breedinglifecycle info` of a parent that came back:
+
+![breedinglifecycle info](docs/screenshots/ingame-info.png)
+
+A loss with `p1 = 1.0`, both parents gone:
+
+![both parents lost](docs/screenshots/ingame-loss.png)
+
+`/daycare deposit` refused while the Pokémon is out of its Poké Ball:
+
+![deposit refused](docs/screenshots/ingame-refused.png)

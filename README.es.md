@@ -113,5 +113,21 @@ Diseño: [docs/architecture.md](docs/architecture.md). Decisiones: [docs/decisio
 
 ## Capturas
 Cada captura, qué muestra y si funciona: [docs/screenshots/INDEX.md](docs/screenshots/INDEX.md). Las del juego
-(`/daycare status`, `/breedinglifecycle info` y una pérdida) aún no están tomadas; cómo tomarlas está en
-[docs/screenshots/TODO.md](docs/screenshots/TODO.md).
+salen del cliente de desarrollo (Cobblemon y este mod, sin los demás mods del pack), con el cliente en inglés, y se
+regeneran con `scripts/ingame-screenshots.sh auto` ([docs/ingame-screenshots.md](docs/ingame-screenshots.md)).
+
+`/daycare status` después de una crianza con la curva por defecto:
+
+![daycare status](docs/screenshots/ingame-daycare-status.png)
+
+`/breedinglifecycle info` de un padre que volvió:
+
+![breedinglifecycle info](docs/screenshots/ingame-info.png)
+
+Una pérdida con `p1 = 1.0`, los dos padres perdidos:
+
+![los dos padres perdidos](docs/screenshots/ingame-loss.png)
+
+`/daycare deposit` rechazado con el Pokémon fuera de su Poké Ball:
+
+![depósito rechazado](docs/screenshots/ingame-refused.png)
