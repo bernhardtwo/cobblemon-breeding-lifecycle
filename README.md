@@ -136,4 +136,5 @@ A loss with `p1 = 1.0`, both parents gone:
 ## License and credits
 Breeding Lifecycle is released under the MIT license, © 2026 Bernardo Vega: see [LICENSE](LICENSE). The jar bundles
 Server Translations API (MIT), which itself nests Packet Tweaker (LGPLv3); their notices are in
-[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md). What to fill in on Modrinth and CurseForge is in
+[docs/publishing.md](docs/publishing.md).

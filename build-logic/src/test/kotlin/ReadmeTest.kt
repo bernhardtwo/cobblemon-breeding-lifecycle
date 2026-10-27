@@ -45,7 +45,7 @@ class ReadmeTest {
     fun `both readmes end with license and credits`() {
         for (name in readmes) {
             val last = readme(name).split(Regex("(?m)^## ")).last()
-            assertEquals(listOf("LICENSE", "THIRD-PARTY-NOTICES.md"), localLinks(last), name)
+            assertEquals(listOf("LICENSE", "THIRD-PARTY-NOTICES.md", "docs/publishing.md"), localLinks(last), name)
         }
     }
 

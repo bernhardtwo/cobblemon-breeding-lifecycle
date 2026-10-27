@@ -138,4 +138,5 @@ Una pérdida con `p1 = 1.0`, los dos padres perdidos:
 ## Licencia y créditos
 Breeding Lifecycle se publica con licencia MIT, © 2026 Bernardo Vega: ver [LICENSE](LICENSE). El jar incluye
 Server Translations API (MIT), que a su vez anida Packet Tweaker (LGPLv3); sus avisos están en
-[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md). Lo que hay que completar en Modrinth y CurseForge está en
+[docs/publishing.md](docs/publishing.md) (en inglés).
