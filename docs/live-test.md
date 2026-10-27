@@ -20,7 +20,7 @@ The CurseForge instance was only read: its mods were copied, nothing in it was w
 Cobblemon, Fabric API and Kotlin in the pack are exactly the versions pinned in `gradle.properties`.
 `server.properties`: `online-mode=true`, flat world, creative. One operator, the tester's account.
 
-Scripts in `live-server/`:
+Scripts in the server's `live-server/` folder, outside the repository:
 
 | Script | Does |
 |---|---|
