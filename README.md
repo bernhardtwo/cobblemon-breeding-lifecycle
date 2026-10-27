@@ -2,9 +2,11 @@
 
 # Breeding Lifecycle
 
-A server-only Cobblemon mod where every breeding has a growing, per-parent chance of losing each parent, instead of
-always consuming both. It ships with a one-call Java API for an existing daycare, a reference daycare to try it, a
-command-line simulator and a static web simulator.
+A server-only Cobblemon mod that is an addition to a breeding system, not a breeding system of its own: after each
+breeding it decides whether each parent is lost, with a growing, per-parent chance, instead of always consuming both.
+The breeding itself comes from one of three places: the server's own daycare calling the one-call Java API, a
+breeding mod that fires Cobblemon's `COLLECT_EGG` event (through the bundled adapter), or the reference daycare
+included to try it. A command-line simulator and a static web simulator come with it.
 
 ## What it is
 Breeding always produces the offspring. Afterwards each parent rolls on its own: with the default curve it is lost
@@ -130,3 +132,8 @@ A loss with `p1 = 1.0`, both parents gone:
 `/daycare deposit` refused while the Pokémon is out of its Poké Ball:
 
 ![deposit refused](docs/screenshots/ingame-refused.png)
+
+## License and credits
+Breeding Lifecycle is released under the MIT license, © 2026 Bernardo Vega: see [LICENSE](LICENSE). The jar bundles
+Server Translations API (MIT), which itself nests Packet Tweaker (LGPLv3); their notices are in
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).

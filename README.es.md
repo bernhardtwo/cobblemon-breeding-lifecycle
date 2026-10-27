@@ -2,10 +2,12 @@
 
 # Breeding Lifecycle
 
-Un mod de Cobblemon solo para el servidor en el que cada crianza tiene una probabilidad creciente, por padre, de
-perder a cada padre, en lugar de consumir siempre a los dos. Trae una API Java de una sola llamada para una
-guardería existente, una guardería de referencia para probarlo, un simulador de línea de comandos y un simulador web
-estático.
+Un mod de Cobblemon solo para el servidor que es una adición a un sistema de crianza, no un sistema de crianza
+propio: después de cada crianza decide si cada padre se pierde, con una probabilidad creciente por padre, en lugar de
+consumir siempre a los dos. La crianza en sí viene de una de tres vías: la guardería del propio servidor llamando a la
+API Java de una sola llamada, un mod de crianza que dispare el evento `COLLECT_EGG` de Cobblemon (con el adaptador
+incluido) o la guardería de referencia incluida para probarlo. Trae además un simulador de línea de comandos y un
+simulador web estático.
 
 ## Qué es
 La crianza siempre produce la cría. Después cada padre tira por su cuenta: con la curva por defecto se pierde con un
@@ -132,3 +134,8 @@ Una pérdida con `p1 = 1.0`, los dos padres perdidos:
 `/daycare deposit` rechazado con el Pokémon fuera de su Poké Ball:
 
 ![depósito rechazado](docs/screenshots/ingame-refused.png)
+
+## Licencia y créditos
+Breeding Lifecycle se publica con licencia MIT, © 2026 Bernardo Vega: ver [LICENSE](LICENSE). El jar incluye
+Server Translations API (MIT), que a su vez anida Packet Tweaker (LGPLv3); sus avisos están en
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).

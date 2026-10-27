@@ -43,6 +43,14 @@ class ReadmeTest {
         assertEquals(sectionLinks(readme("README.md")), sectionLinks(readme("README.es.md")))
 
     @Test
+    fun `both readmes end with license and credits`() {
+        for (name in readmes) {
+            val last = readme(name).split(Regex("(?m)^## ")).last()
+            assertEquals(listOf("LICENSE", "THIRD-PARTY-NOTICES.md"), localLinks(last), name)
+        }
+    }
+
+    @Test
     fun `no server or network name`() {
         for (name in readmes) assertFalse(readme(name).contains("diosesmon", ignoreCase = true), name)
     }
