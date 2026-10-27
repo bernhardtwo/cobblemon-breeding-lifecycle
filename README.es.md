@@ -1,5 +1,7 @@
 [English](README.md)
 
+<img src="mod/src/main/resources/assets/breedinglifecycle/icon.png" alt="Ícono de Breeding Lifecycle" width="128">
+
 # Breeding Lifecycle
 
 Un mod de Cobblemon solo para el servidor que es una adición a un sistema de crianza, no un sistema de crianza

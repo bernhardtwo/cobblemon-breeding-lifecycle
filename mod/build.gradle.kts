@@ -128,7 +128,7 @@ tasks.test {
 
 val checkDistributedJar by tasks.registering {
     description = "Fails when the distributed jar contains files from the screenshots source set, " +
-        "or when a license file or the bundled Server Translations API jar is missing."
+        "or when a license file, the icon or the bundled Server Translations API jar is missing."
     group = "verification"
     val jar = tasks.named<AbstractArchiveTask>("remapJar").flatMap { it.archiveFile }
     inputs.file(jar)
@@ -142,6 +142,7 @@ val checkDistributedJar by tasks.registering {
             "LICENSE" to "LICENSE",
             "LICENSES/GPL-3.0.txt" to "LICENSES/GPL-3.0.txt",
             "LICENSES/LGPL-3.0.txt" to "LICENSES/LGPL-3.0.txt",
+            "assets/breedinglifecycle/icon.png" to "assets/breedinglifecycle/icon.png",
             "META-INF/jars/server-translations-api-*.jar" to "server-translations-api",
         )
         val missing = required.filter { (pattern, _) -> contents.matching { include(pattern) }.isEmpty }.values

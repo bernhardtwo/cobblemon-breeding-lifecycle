@@ -11,6 +11,7 @@
     "issues": "https://github.com/bernhardtwo/cobblemon-breeding-lifecycle/issues"
   },
   "license": "MIT",
+  "icon": "assets/breedinglifecycle/icon.png",
   "environment": "server",
   "entrypoints": {
     "server": ["io.github.bernhardtwo.breedinglifecycle.mod.BreedingLifecycleMod"]

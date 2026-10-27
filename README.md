@@ -1,5 +1,7 @@
 [Español](README.es.md)
 
+<img src="mod/src/main/resources/assets/breedinglifecycle/icon.png" alt="Breeding Lifecycle icon" width="128">
+
 # Breeding Lifecycle
 
 A server-only Cobblemon mod that is an addition to a breeding system, not a breeding system of its own: after each

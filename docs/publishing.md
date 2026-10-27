@@ -11,6 +11,7 @@ no token in the repository.
 | Summary | An addition to Cobblemon breeding: each parent gets a growing chance of being lost, instead of always being consumed. |
 | License | MIT ([LICENSE](../LICENSE)); bundled libraries in [THIRD-PARTY-NOTICES.md](../THIRD-PARTY-NOTICES.md) |
 | Source and issues | https://github.com/bernhardtwo/cobblemon-breeding-lifecycle |
+| Icon | `mod/src/main/resources/assets/breedinglifecycle/icon.png` (256×256, the same file the jar ships); use a 512×512 copy, kept outside the repository, if a site prefers it |
 
 ## Version
 | Field | Value |

@@ -51,7 +51,8 @@ everything that needs Cobblemon: counter, `evaluate`, commands and translations,
 `-Dbreedinglifecycle.screenshots=true`; it takes the in-game screenshots ([in-game screenshots](ingame-screenshots.md)).
 It is never in the distributed jar: `checkDistributedJar`, part of `check`, fails if any of it gets in, and also
 if `LICENSE`, `LICENSES/GPL-3.0.txt`, `LICENSES/LGPL-3.0.txt` or the bundled Server Translations API jar is missing
-([0013](decisions/0013-mit-license-and-bundled-libraries.md)).
+([0013](decisions/0013-mit-license-and-bundled-libraries.md)), or if the mod icon, `assets/breedinglifecycle/icon.png`,
+is missing.
 
 ## The web simulator
 `web/src` has no framework:
