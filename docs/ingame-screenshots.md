@@ -44,4 +44,4 @@ in English only. The Spanish texts and the pack together are covered by [live-te
 ## Kept out of the mod
 The screenshots client is its own source set and Fabric mod (`breedinglifecycle-screenshots`, client only). Without
 `-Dbreedinglifecycle.screenshots=true` it does nothing, and it is never packed: `./gradlew check` runs
-`checkDistributedJar`, which fails if any of it is in `mod/build/libs/mod-<version>.jar`.
+`checkDistributedJar`, which fails if any of it is in `mod/build/libs/breeding-lifecycle-<version>.jar`.

@@ -15,7 +15,7 @@ The CurseForge instance was only read: its mods were copied, nothing in it was w
 | Cobblemon | 1.7.3+1.21.1 |
 | Fabric API | 0.116.11+1.21.1 |
 | Fabric Language Kotlin | 1.13.11+kotlin.2.3.21 |
-| Breeding Lifecycle | 0.1.0, `mod/build/libs/mod-0.1.0.jar` |
+| Breeding Lifecycle | 0.1.0+1.21.1, `mod/build/libs/breeding-lifecycle-0.1.0+1.21.1.jar` |
 
 Cobblemon, Fabric API and Kotlin in the pack are exactly the versions pinned in `gradle.properties`.
 `server.properties`: `online-mode=true`, flat world, creative. One operator, the tester's account.
@@ -90,7 +90,7 @@ loads 133 mods in all, counting nested libraries. No mod crashed the server, so 
 | `xaerominimap-fabric-1.21.1-26.6.0.jar` | `xaerominimap` | 26.6.0 | environment * |
 | `xaeroworldmap-fabric-1.21.1-1.47.0.jar` | `xaeroworldmap` | 1.47.0 | environment * |
 | `zamega-fabric-1.7.3.jar` | `zamega` | 1.7.3 | environment * |
-| `mod-0.1.0.jar` | `breedinglifecycle` | 0.1.0 | this project |
+| `breeding-lifecycle-0.1.0+1.21.1.jar` | `breedinglifecycle` | 0.1.0+1.21.1 | this project |
 
 ### Excluded (37)
 | File | Mod id | Version | Reason |

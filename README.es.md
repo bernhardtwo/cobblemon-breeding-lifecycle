@@ -26,8 +26,9 @@ prueba compartidos están en [docs/formula.md](docs/formula.md) (en inglés).
   [docs/research/modpack-versions.md](docs/research/modpack-versions.md)): Minecraft 1.21.1, Java 21,
   Cobblemon `1.7.3+1.21.1`, Fabric Loader 0.19.2, Fabric API `0.116.11+1.21.1`, Fabric Language Kotlin
   `1.13.11+kotlin.2.3.21`.
-- **Instalación.** Compila el jar con `./gradlew :mod:build` y copia `mod/build/libs/mod-0.1.0.jar` en la carpeta
-  `mods/` del servidor, junto a Fabric API, Fabric Language Kotlin y Cobblemon. Server Translations API va incluida.
+- **Instalación.** Compila el jar con `./gradlew :mod:build` y copia
+  `mod/build/libs/breeding-lifecycle-0.1.0+1.21.1.jar` en la carpeta `mods/` del servidor, junto a Fabric API,
+  Fabric Language Kotlin y Cobblemon. Server Translations API va incluida.
 - **Configuración.** `config/breeding-lifecycle.json` se escribe con los valores por defecto en el primer arranque.
   Contiene los presets, los overrides campo por campo y los interruptores de la guardería de referencia, del
   adaptador de `COLLECT_EGG` y del log de auditoría (`logs/breeding-lifecycle/audit.jsonl`). Cada valor inválido se
