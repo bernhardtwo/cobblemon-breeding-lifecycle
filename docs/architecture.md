@@ -50,7 +50,8 @@ everything that needs Cobblemon: counter, `evaluate`, commands and translations,
 **Screenshots client.** `mod/src/screenshots` is a client mod loaded only by `runClient` and active only with
 `-Dbreedinglifecycle.screenshots=true`; it takes the in-game screenshots ([in-game screenshots](ingame-screenshots.md)).
 It is never in the distributed jar: `checkDistributedJar`, part of `check`, fails if any of it gets in, and also
-if `LICENSE` or the bundled Server Translations API jar is missing ([0013](decisions/0013-mit-license-and-bundled-libraries.md)).
+if `LICENSE`, `LICENSES/GPL-3.0.txt`, `LICENSES/LGPL-3.0.txt` or the bundled Server Translations API jar is missing
+([0013](decisions/0013-mit-license-and-bundled-libraries.md)).
 
 ## The web simulator
 `web/src` has no framework:

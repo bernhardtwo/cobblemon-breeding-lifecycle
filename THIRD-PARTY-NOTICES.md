@@ -35,9 +35,14 @@ THE SOFTWARE.
 
 ## Packet Tweaker
 - Version: `0.5.1+24w03b` (`xyz.nucleoid:packet-tweaker`), by Gegy and Patbox.
-- License: GNU Lesser General Public License v3 (LGPLv3).
-- Source: https://github.com/Patbox/packet-tweaker
+- License: GNU Lesser General Public License v3 (LGPLv3), which incorporates the GNU General Public License v3.
+- Source of the distributed version: tag `v0.5.1+24w03b`,
+  https://github.com/NucleoidMC/packet-tweaker/tree/v0.5.1%2B24w03b, commit
+  `02e154cfd36e006f625d641526d1ef638cfde0cb`.
 
 It is not bundled by this project directly: it is nested, unmodified, inside the Server Translations API jar, at
-`META-INF/jars/packet-tweaker-0.5.1+24w03b.jar`, and carries its own license file, `LICENSE_packet-tweaker`. Its
-source code is available at the URL above.
+`META-INF/jars/packet-tweaker-0.5.1+24w03b.jar`, and carries its own license file, `LICENSE_packet-tweaker`. It stays
+a separate jar, so a user can replace it with another compatible version of the library.
+
+The full texts of the LGPLv3 and of the GPLv3 it incorporates are in `LICENSES/LGPL-3.0.txt` and
+`LICENSES/GPL-3.0.txt`, both in this repository and in the distributed jar.
