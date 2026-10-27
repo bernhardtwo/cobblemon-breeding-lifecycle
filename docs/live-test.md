@@ -1,10 +1,10 @@
 # Live server test
 
-The mod run on a real dedicated Fabric server next to the mods of the Diosesmon Official PRO pack (CurseForge,
+The mod run on a real dedicated Fabric server next to the mods of a Cobblemon 1.7.3+1.21.1 modpack (CurseForge,
 pack 1.0.12), with no client. Run on 2026-10-21. What still needs a client is listed at the end.
 
 ## Setup
-The server lives outside the repository, in `~/projects/diosesmon-crianza/live-server/`, and is not committed.
+The server lives outside the repository and is not committed.
 The CurseForge instance was only read: its mods were copied, nothing in it was written.
 
 | Piece | Version |
@@ -114,7 +114,7 @@ loads 133 mods in all, counting nested libraries. No mod crashed the server, so 
 | `chat_heads-0.15.1-fabric-1.21.jar` | `chat_heads` | 0.15.1 | environment client |
 | `chatanimation-fabric-1.21.1-1.1.3.jar` | `chatanimation` | 1.1.3 | environment client |
 | `cinematiczoom-0.8.0.jar` | `cinematiczoom` | 0.8.0 | environment client |
-| `diosesmon-1.7.12.jar` | `diosesmon-client` | 1.7.12 | environment client |
+| the pack's own client-side mod | — | 1.7.12 | environment client |
 | `entity_model_features_1.21-fabric-3.2.2.jar` | `entity_model_features` | 3.2.2 | environment client |
 | `entity_texture_features_1.21-fabric-7.1.jar` | `entity_texture_features` | 7.1 | environment client |
 | `fallingleaves-1.17.1+1.21.1.jar` | `fallingleaves` | 1.17.1 | environment client |
@@ -133,9 +133,9 @@ loads 133 mods in all, counting nested libraries. No mod crashed the server, so 
 | `sodium-fabric-0.6.13+mc1.21.1.jar` | `sodium` | 0.6.13+mc1.21.1 | environment client |
 | `visuality-0.7.7+1.21.jar` | `visuality` | 0.7.7+1.21 | environment client |
 
-### The network companion
-`diosesmon-1.7.12.jar` declares `"id": "diosesmon-client"` and `"environment": "client"` in its `fabric.mod.json`,
-so it is client-only and was not put on the server. Nothing else in it was read.
+### The pack's client mod
+The pack's own mod declares `"environment": "client"` in its `fabric.mod.json`, so it is client-only and was not
+put on the server. Nothing else in it was read.
 
 ## Console tests
 Sent through the console FIFO; output as the server logged it, timestamps removed. The config the mod writes on its

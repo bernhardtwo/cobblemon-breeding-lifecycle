@@ -11,7 +11,7 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    inputs.files(fileTree(rootDir.parentFile) { include("README.md", "README.es.md") })
+    inputs.files(fileTree(rootDir.parentFile) { include("*.md", "mod/src/main/resources/fabric.mod.json") })
         .withPathSensitivity(PathSensitivity.RELATIVE)
     inputs.dir(rootDir.resolve("../docs")).withPathSensitivity(PathSensitivity.RELATIVE)
 }

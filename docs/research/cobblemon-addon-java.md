@@ -63,7 +63,7 @@ Research date: 2026-10-21. Target: `Cobblemon-fabric-1.7.3+1.21.1.jar`. Cobblemo
 - **Cobbreeding's flag is reversible.**
   - The original trainer (OT) can toggle it from the summary GUI. The server checks `player.stringUUID == pokemon.originalTrainer` ([CB:network/ToggleNeuterPacket.kt](https://gitlab.com/ludichat/Cobbreeding/-/blob/cobblemon-1.7/common/src/main/kotlin/ludichat/cobbreeding/network/ToggleNeuterPacket.kt)).
   - A third-party addon, "disable cobbreeding breeding", changes that toggle into a permanent one-way action ([moddex listing](https://moddex.gg/mod/disable-cobbreeding-breeding-addon-mr-hhi1jMm5)). It is unverified beyond that listing.
-- Cobbreeding is **not installed** in the "Diosesmon Official PRO" instance: no matching jar in its `mods/` folder (`ls` of the instance).
+- Cobbreeding is **not installed** in the Cobblemon 1.7.3+1.21.1 modpack instance used for the research: no matching jar in its `mods/` folder (`ls` of the instance).
 
 ## 4. `Pokemon.persistentData`
 - The declaration is `var persistentData: CompoundTag = CompoundTag()` with an `internal set` ([C:pokemon/Pokemon.kt#L652-L658](https://gitlab.com/cable-mc/cobblemon/-/blob/1.7.3/common/src/main/kotlin/com/cobblemon/mod/common/pokemon/Pokemon.kt#L652)).

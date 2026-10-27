@@ -3,7 +3,7 @@
 Research date: 2026-10-21. Scope: can a third-party mod find out when an egg is produced, and which
 parents produced it, so it can evaluate parent loss? Every claim below links its source. Where the
 source is the local jar, the evidence is a read-only `unzip -l` / byte grep of
-`Diosesmon Official PRO/mods/Cobblemon-fabric-1.7.3+1.21.1.jar` (the instance was not modified).
+`mods/Cobblemon-fabric-1.7.3+1.21.1.jar` of a Cobblemon 1.7.3+1.21.1 modpack instance (the instance was not modified).
 
 ## 1. Cobblemon 1.7.3 itself
 
@@ -47,7 +47,7 @@ mods to fire.
 
 Version data comes from the Modrinth API
 (`/v2/project/<slug>/version?game_versions=["1.21.1"]&loaders=["fabric"]`). Neither mod is installed
-in the Diosesmon instance; the instance's `mods/` folder has no breeding jar.
+in that modpack instance; the instance's `mods/` folder has no breeding jar.
 
 ### 2.1 Cobbreeding (ludichat)
 
