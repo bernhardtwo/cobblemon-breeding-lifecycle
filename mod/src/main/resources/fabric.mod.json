@@ -3,7 +3,14 @@
   "id": "breedinglifecycle",
   "version": "${version}",
   "name": "Breeding Lifecycle",
-  "description": "Each breeding has a growing, per-parent chance of losing each parent.",
+  "description": "An addition to a breeding system: after each breeding, every parent has a growing, per-parent chance of being lost instead of always being consumed.",
+  "authors": ["Bernardo Vega"],
+  "contact": {
+    "homepage": "https://github.com/bernhardtwo/cobblemon-breeding-lifecycle",
+    "sources": "https://github.com/bernhardtwo/cobblemon-breeding-lifecycle",
+    "issues": "https://github.com/bernhardtwo/cobblemon-breeding-lifecycle/issues"
+  },
+  "license": "MIT",
   "environment": "server",
   "entrypoints": {
     "server": ["io.github.bernhardtwo.breedinglifecycle.mod.BreedingLifecycleMod"]

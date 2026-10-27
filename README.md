@@ -2,9 +2,11 @@
 
 # Breeding Lifecycle
 
-A server-only Cobblemon mod where every breeding has a growing, per-parent chance of losing each parent, instead of
-always consuming both. It ships with a one-call Java API for an existing daycare, a reference daycare to try it, a
-command-line simulator and a static web simulator.
+A server-only Cobblemon mod that is an addition to a breeding system, not a breeding system of its own: after each
+breeding it decides whether each parent is lost, with a growing, per-parent chance, instead of always consuming both.
+The breeding itself comes from one of three places: the server's own daycare calling the one-call Java API, a
+breeding mod that fires Cobblemon's `COLLECT_EGG` event (through the bundled adapter), or the reference daycare
+included to try it. A command-line simulator and a static web simulator come with it.
 
 ## What it is
 Breeding always produces the offspring. Afterwards each parent rolls on its own: with the default curve it is lost
@@ -25,8 +27,9 @@ The survival `S(n)`, the expected offspring `E = Σ S(n)` and the shared test ve
   [docs/research/modpack-versions.md](docs/research/modpack-versions.md)): Minecraft 1.21.1, Java 21,
   Cobblemon `1.7.3+1.21.1`, Fabric Loader 0.19.2, Fabric API `0.116.11+1.21.1`, Fabric Language Kotlin
   `1.13.11+kotlin.2.3.21`.
-- **Install.** Build the jar with `./gradlew :mod:build` and copy `mod/build/libs/mod-0.1.0.jar` into the server's
-  `mods/` folder, next to Fabric API, Fabric Language Kotlin and Cobblemon. Server Translations API is bundled.
+- **Install.** Build the jar with `./gradlew :mod:build` and copy `mod/build/libs/breeding-lifecycle-0.1.0+1.21.1.jar`
+  into the server's `mods/` folder, next to Fabric API, Fabric Language Kotlin and Cobblemon. Server Translations API
+  is bundled.
 - **Configure.** `config/breeding-lifecycle.json` is written with the defaults on first start. It holds presets,
   field-by-field overrides and the switches for the reference daycare, the `COLLECT_EGG` adapter and the audit log
   (`logs/breeding-lifecycle/audit.jsonl`). Every invalid value is reported with its field, value and range; see
@@ -129,3 +132,8 @@ A loss with `p1 = 1.0`, both parents gone:
 `/daycare deposit` refused while the Pokémon is out of its Poké Ball:
 
 ![deposit refused](docs/screenshots/ingame-refused.png)
+
+## License and credits
+Breeding Lifecycle is released under the MIT license, © 2026 Bernardo Vega: see [LICENSE](LICENSE). The jar bundles
+Server Translations API (MIT), which itself nests Packet Tweaker (LGPLv3); their notices are in
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).

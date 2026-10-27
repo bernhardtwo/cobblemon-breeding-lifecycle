@@ -6,7 +6,11 @@ plugins {
 
 val parchmentVersion = providers.gradleProperty("parchment_version").get()
 
-version = "0.1.0"
+version = "0.1.0+1.21.1"
+
+base {
+    archivesName = "breeding-lifecycle"
+}
 
 repositories {
     maven("https://maven.parchmentmc.org")
@@ -105,6 +109,10 @@ tasks.processResources {
     }
 }
 
+tasks.jar {
+    from(rootProject.file("LICENSE"))
+}
+
 tasks.named("runGametest") {
     doFirst {
         val dir = layout.buildDirectory.dir("gametest").get().asFile
@@ -118,14 +126,21 @@ tasks.test {
 }
 
 val checkDistributedJar by tasks.registering {
-    description = "Fails when the distributed jar contains files from the screenshots source set."
+    description = "Fails when the distributed jar contains files from the screenshots source set, " +
+        "or when LICENSE or the bundled Server Translations API jar is missing."
     group = "verification"
     val jar = tasks.named<AbstractArchiveTask>("remapJar").flatMap { it.archiveFile }
     inputs.file(jar)
     doLast {
-        val leaked = zipTree(jar.get().asFile).matching { include("**/*screenshots*/**", "**/*screenshots*") }.files
+        val contents = zipTree(jar.get().asFile)
+        val leaked = contents.matching { include("**/*screenshots*/**", "**/*screenshots*") }.files
         if (leaked.isNotEmpty()) {
             throw GradleException("distributed jar contains development files: ${leaked.map { it.name }}")
+        }
+        val required = mapOf("LICENSE" to "LICENSE", "META-INF/jars/server-translations-api-*.jar" to "server-translations-api")
+        val missing = required.filter { (pattern, _) -> contents.matching { include(pattern) }.isEmpty }.values
+        if (missing.isNotEmpty()) {
+            throw GradleException("distributed jar is missing: $missing")
         }
     }
 }

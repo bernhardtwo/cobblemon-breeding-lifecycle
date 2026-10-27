@@ -1,6 +1,5 @@
 import java.io.File
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
@@ -43,8 +42,20 @@ class ReadmeTest {
         assertEquals(sectionLinks(readme("README.md")), sectionLinks(readme("README.es.md")))
 
     @Test
-    fun `no server or network name`() {
-        for (name in readmes) assertFalse(readme(name).contains("diosesmon", ignoreCase = true), name)
+    fun `both readmes end with license and credits`() {
+        for (name in readmes) {
+            val last = readme(name).split(Regex("(?m)^## ")).last()
+            assertEquals(listOf("LICENSE", "THIRD-PARTY-NOTICES.md"), localLinks(last), name)
+        }
+    }
+
+    @Test
+    fun `no server or network name in docs, root markdown or mod metadata`() {
+        val files = root.listFiles { f -> f.extension == "md" }!!.toList() +
+            File(root, "docs").walk().filter { it.extension == "md" } +
+            File(root, "mod/src/main/resources/fabric.mod.json")
+        val hits = files.filter { it.readText().contains("diosesmon", ignoreCase = true) }.map { it.relativeTo(root).path }
+        assertEquals(emptyList<String>(), hits)
     }
 
     @Test
